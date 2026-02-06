@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { useRef, useState, useEffect } from 'react';
 import { toPng } from 'html-to-image';
 import { Download } from 'lucide-react';
 
