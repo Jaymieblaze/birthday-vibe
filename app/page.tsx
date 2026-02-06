@@ -67,13 +67,43 @@ export default function Home() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Birth Date *
                 </label>
-                <input
-                  type="date"
-                  value={formData.birthDate}
-                  onChange={(e) => setFormData(prev => ({ ...prev, birthDate: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-700 font-medium"
-                  style={{ colorScheme: 'light' }}
-                />
+                <div className="grid grid-cols-2 gap-3">
+                  <select
+                    value={formData.birthDate.split('-')[2] || ''}
+                    onChange={(e) => {
+                      const month = formData.birthDate.split('-')[1] || '01';
+                      setFormData(prev => ({ ...prev, birthDate: `2000-${month}-${e.target.value.padStart(2, '0')}` }));
+                    }}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                  >
+                    <option value="">Day</option>
+                    {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
+                      <option key={day} value={day}>{day}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={formData.birthDate.split('-')[1] || ''}
+                    onChange={(e) => {
+                      const day = formData.birthDate.split('-')[2] || '01';
+                      setFormData(prev => ({ ...prev, birthDate: `2000-${e.target.value.padStart(2, '0')}-${day}` }));
+                    }}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                  >
+                    <option value="">Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
               </div>
 
               <div>

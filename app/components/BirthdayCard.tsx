@@ -20,24 +20,24 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   // Color scheme configurations
   const colorSchemes = {
     'purple-pink': {
-      gradient: 'linear-gradient(135deg, #e8b5ff 0%, #d4a5ff 25%, #c895ff 50%, #b990ff 75%, #a580ff 100%)',
-      decorations: ['bg-yellow-300', 'bg-pink-300', 'bg-purple-300'],
+      gradient: 'linear-gradient(135deg, #ff6ec7 0%, #e056fd 20%, #c65df9 40%, #a855f7 60%, #9333ea 80%, #7c3aed 100%)',
+      decorations: ['bg-yellow-400', 'bg-pink-400', 'bg-purple-400'],
     },
     'blue-teal': {
-      gradient: 'linear-gradient(135deg, #a8e6cf 0%, #88d8c0 25%, #68c9b1 50%, #48baa3 75%, #38ab93 100%)',
-      decorations: ['bg-cyan-300', 'bg-teal-300', 'bg-blue-300'],
+      gradient: 'linear-gradient(135deg, #4fd1c5 0%, #38b2ac 20%, #3182ce 40%, #2c5282 60%, #2b6cb0 80%, #1e40af 100%)',
+      decorations: ['bg-cyan-400', 'bg-teal-400', 'bg-blue-400'],
     },
     'rose-gold': {
-      gradient: 'linear-gradient(135deg, #ffd6d6 0%, #ffc4c4 25%, #ffb3b3 50%, #ffa1a1 75%, #ff8f8f 100%)',
-      decorations: ['bg-orange-200', 'bg-rose-300', 'bg-pink-200'],
+      gradient: 'linear-gradient(135deg, #fecaca 0%, #fca5a5 20%, #f87171 40%, #ef4444 60%, #dc2626 80%, #b91c1c 100%)',
+      decorations: ['bg-orange-300', 'bg-rose-400', 'bg-pink-300'],
     },
     'coral-peach': {
-      gradient: 'linear-gradient(135deg, #ffe5d9 0%, #ffd4c1 25%, #ffc3aa 50%, #ffb393 75%, #ffa27c 100%)',
-      decorations: ['bg-yellow-200', 'bg-orange-200', 'bg-peach-300'],
+      gradient: 'linear-gradient(135deg, #fed7aa 0%, #fdba74 20%, #fb923c 40%, #f97316 60%, #ea580c 80%, #dc2626 100%)',
+      decorations: ['bg-yellow-300', 'bg-orange-300', 'bg-red-300'],
     },
     'lavender-mint': {
-      gradient: 'linear-gradient(135deg, #e6e6fa 0%, #d8d8f6 25%, #cacacf2 50%, #bcbcee 75%, #aeaeea 100%)',
-      decorations: ['bg-green-200', 'bg-purple-200', 'bg-blue-200'],
+      gradient: 'linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 20%, #a78bfa 40%, #8b5cf6 60%, #7c3aed 80%, #6d28d9 100%)',
+      decorations: ['bg-green-300', 'bg-purple-300', 'bg-indigo-300'],
     },
   };
 
