@@ -11,6 +11,7 @@ export default function Home() {
     title: 'ESTEEMED SISTER',
     photo: null as string | null,
     secondPhoto: null as string | null,
+    colorScheme: 'purple-pink' as 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint',
   });
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,6 +108,23 @@ export default function Home() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Color Scheme
+                </label>
+                <select
+                  value={formData.colorScheme}
+                  onChange={(e) => setFormData(prev => ({ ...prev, colorScheme: e.target.value as any }))}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                >
+                  <option value="purple-pink">Purple & Pink</option>
+                  <option value="blue-teal">Blue & Teal</option>
+                  <option value="rose-gold">Rose & Gold</option>
+                  <option value="coral-peach">Coral & Peach</option>
+                  <option value="lavender-mint">Lavender & Mint</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Upload Main Photo *
                 </label>
                 <input
@@ -145,6 +163,7 @@ export default function Home() {
               title={formData.title}
               photo={formData.photo}
               secondPhoto={formData.secondPhoto}
+              colorScheme={formData.colorScheme}
             />
           </div>
         </div>

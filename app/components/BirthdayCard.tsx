@@ -11,10 +11,37 @@ interface BirthdayCardProps {
   title: string;
   photo: string | null;
   secondPhoto: string | null;
+  colorScheme: 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint';
 }
 
-export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto }: BirthdayCardProps) {
+export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, colorScheme }: BirthdayCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Color scheme configurations
+  const colorSchemes = {
+    'purple-pink': {
+      gradient: 'linear-gradient(135deg, #e8b5ff 0%, #d4a5ff 25%, #c895ff 50%, #b990ff 75%, #a580ff 100%)',
+      decorations: ['bg-yellow-300', 'bg-pink-300', 'bg-purple-300'],
+    },
+    'blue-teal': {
+      gradient: 'linear-gradient(135deg, #a8e6cf 0%, #88d8c0 25%, #68c9b1 50%, #48baa3 75%, #38ab93 100%)',
+      decorations: ['bg-cyan-300', 'bg-teal-300', 'bg-blue-300'],
+    },
+    'rose-gold': {
+      gradient: 'linear-gradient(135deg, #ffd6d6 0%, #ffc4c4 25%, #ffb3b3 50%, #ffa1a1 75%, #ff8f8f 100%)',
+      decorations: ['bg-orange-200', 'bg-rose-300', 'bg-pink-200'],
+    },
+    'coral-peach': {
+      gradient: 'linear-gradient(135deg, #ffe5d9 0%, #ffd4c1 25%, #ffc3aa 50%, #ffb393 75%, #ffa27c 100%)',
+      decorations: ['bg-yellow-200', 'bg-orange-200', 'bg-peach-300'],
+    },
+    'lavender-mint': {
+      gradient: 'linear-gradient(135deg, #e6e6fa 0%, #d8d8f6 25%, #cacacf2 50%, #bcbcee 75%, #aeaeea 100%)',
+      decorations: ['bg-green-200', 'bg-purple-200', 'bg-blue-200'],
+    },
+  };
+
+  const currentScheme = colorSchemes[colorScheme];
 
   const formatDate = (dateString: string) => {
     if (!dateString) return '';
@@ -74,14 +101,14 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         ref={cardRef}
         className="relative w-full aspect-2/3 overflow-hidden rounded-lg shadow-2xl"
         style={{
-          background: 'linear-gradient(135deg, #e8b5ff 0%, #d4a5ff 25%, #c895ff 50%, #b990ff 75%, #a580ff 100%)',
+          background: currentScheme.gradient,
         }}
       >
         {/* Background decorative elements */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-yellow-300 rounded-full blur-3xl"></div>
-          <div className="absolute top-20 right-0 w-40 h-40 bg-pink-300 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 left-10 w-36 h-36 bg-purple-300 rounded-full blur-3xl"></div>
+          <div className={`absolute top-0 left-0 w-32 h-32 ${currentScheme.decorations[0]} rounded-full blur-3xl`}></div>
+          <div className={`absolute top-20 right-0 w-40 h-40 ${currentScheme.decorations[1]} rounded-full blur-3xl`}></div>
+          <div className={`absolute bottom-20 left-10 w-36 h-36 ${currentScheme.decorations[2]} rounded-full blur-3xl`}></div>
         </div>
 
         {/* Content */}
