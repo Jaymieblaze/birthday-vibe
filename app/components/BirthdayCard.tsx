@@ -245,11 +245,11 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 )}
 
                 {/* Date Badge - Right Side Overlap */}
-                <div className="absolute top-[60%] -right-6 -translate-y-1/2 z-10">
-                  <div className="bg-linear-to-br from-yellow-500 to-yellow-700 rounded-full w-24 h-24 flex items-center justify-center border-4 border-yellow-300 shadow-lg">
+                <div className="absolute top-[60%] -right-12 -translate-y-1/2 z-10">
+                  <div className="bg-linear-to-br from-yellow-500 to-yellow-700 rounded-full w-32 h-32 flex items-center justify-center border-4 border-yellow-300 shadow-lg">
                     <div className="text-white text-center">
-                      <div className="text-sm font-bold">{formatDate(birthDate).split(' ')[0]}</div>
-                      <div className="text-xs font-semibold leading-tight">{formatDate(birthDate).split(' ')[1]}</div>
+                      <div className="text-lg font-bold">{formatDate(birthDate).split(' ')[0]}</div>
+                      <div className="text-sm font-semibold leading-tight">{formatDate(birthDate).split(' ')[1]}</div>
                     </div>
                   </div>
                 </div>
