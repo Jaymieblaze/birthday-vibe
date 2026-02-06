@@ -137,9 +137,9 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           {/* Top Section */}
           <div className="flex justify-between items-start p-6">
             {/* Happy Birthday Text */}
-            <div className="relative">
-              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-8 py-2 rounded-md shadow-lg">
-                <div className="text-yellow-100 text-base font-semibold tracking-wider">HAPPY</div>
+            <div className="relative ml-8 mt-8">
+              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 py-2 rounded-md shadow-lg">
+                <div className="text-yellow-100 font-semibold tracking-wider" style={{ fontSize: '20px' }}>HAPPY</div>
               </div>
               <div className="mt-2">
                 <h1 className="text-8xl font-black tracking-tight leading-none" style={{
@@ -162,7 +162,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             </div>
 
             {/* Church Logo and Name */}
-            <div className="flex flex-col items-center gap-1">
+            <div className="flex flex-col items-center gap-1 mr-8 mt-8">
               <div className="w-36 h-36 flex items-center justify-center">
                 <img 
                   src="/lmm-logo.png" 
@@ -180,7 +180,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Center Section - Photo Frame */}
-          <div className="flex-1 flex items-center justify-center px-8">
+          <div className="flex-1 flex items-center justify-center px-6">
             <div className="relative w-full max-w-[85%]">
               {/* Decorative Flowers - Left */}
               <div className="absolute -left-8 top-1/2 -translate-y-1/2 space-y-2 z-0">
