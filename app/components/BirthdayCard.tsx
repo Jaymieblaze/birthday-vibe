@@ -158,7 +158,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Church Logo and Name */}
             <div className="flex flex-col items-center gap-1">
-              <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 flex items-center justify-center">
+              <div className="w-25 h-25 sm:w-28 sm:h-28 md:w-36 md:h-36 flex items-center justify-center">
                 <img 
                   src="/lmm-logo.png" 
                   alt="Church Logo" 
