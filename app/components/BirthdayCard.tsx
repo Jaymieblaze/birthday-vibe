@@ -63,18 +63,26 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     if (!cardRef.current) return;
 
     try {
-      // Force a fixed viewport for consistent rendering
-      const scale = 2; // For high quality
-      const baseWidth = 768;
-      const baseHeight = 1152;
+      // Store original dimensions
+      const originalWidth = cardRef.current.style.width;
+      const originalMaxWidth = cardRef.current.style.maxWidth;
+      
+      // Temporarily set fixed size for consistent download
+      cardRef.current.style.width = '768px';
+      cardRef.current.style.maxWidth = '768px';
+      
+      // Wait for layout to update
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       const dataUrl = await toPng(cardRef.current, {
         quality: 1,
-        pixelRatio: scale,
+        pixelRatio: 2,
         cacheBust: true,
-        skipAutoScale: true,
-        backgroundColor: 'transparent',
       });
+      
+      // Restore original dimensions
+      cardRef.current.style.width = originalWidth;
+      cardRef.current.style.maxWidth = originalMaxWidth;
 
       const link = document.createElement('a');
       link.download = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;
@@ -97,13 +105,15 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   const { firstName, lastName } = splitName(name);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 flex flex-col items-center">
       {/* Card Preview */}
       <div 
         ref={cardRef}
-        className="relative w-full aspect-2/3 overflow-hidden rounded-lg shadow-2xl"
+        className="relative aspect-2/3 overflow-hidden rounded-lg shadow-2xl"
         style={{
           background: currentScheme.gradient,
+          width: '768px',
+          maxWidth: '100%',
         }}
       >
         {/* Background decorative elements */}
