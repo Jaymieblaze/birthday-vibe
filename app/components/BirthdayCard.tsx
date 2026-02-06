@@ -63,20 +63,17 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     if (!cardRef.current) return;
 
     try {
-      // Set a consistent width for download across all devices
-      const downloadWidth = 768;
-      const downloadHeight = 1152; // 2:3 aspect ratio
+      // Force a fixed viewport for consistent rendering
+      const scale = 2; // For high quality
+      const baseWidth = 768;
+      const baseHeight = 1152;
       
       const dataUrl = await toPng(cardRef.current, {
         quality: 1,
-        pixelRatio: 2,
-        width: downloadWidth,
-        height: downloadHeight,
+        pixelRatio: scale,
         cacheBust: true,
-        style: {
-          transform: 'scale(1)',
-          transformOrigin: 'top left',
-        },
+        skipAutoScale: true,
+        backgroundColor: 'transparent',
       });
 
       const link = document.createElement('a');
