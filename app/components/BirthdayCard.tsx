@@ -63,26 +63,30 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     if (!cardRef.current) return;
 
     try {
-      // Store original dimensions
+      // Store original styles
       const originalWidth = cardRef.current.style.width;
       const originalMaxWidth = cardRef.current.style.maxWidth;
+      const originalTransform = cardRef.current.style.transform;
       
-      // Temporarily set fixed size for consistent download
+      // Force desktop size for consistent capture
       cardRef.current.style.width = '768px';
       cardRef.current.style.maxWidth = '768px';
+      cardRef.current.style.transform = 'scale(1)';
       
-      // Wait for layout to update
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait for layout to stabilize
+      await new Promise(resolve => setTimeout(resolve, 300));
       
       const dataUrl = await toPng(cardRef.current, {
         quality: 1,
-        pixelRatio: 2,
+        pixelRatio: 3,
         cacheBust: true,
+        backgroundColor: 'transparent',
       });
       
-      // Restore original dimensions
+      // Restore original styles
       cardRef.current.style.width = originalWidth;
       cardRef.current.style.maxWidth = originalMaxWidth;
+      cardRef.current.style.transform = originalTransform;
 
       const link = document.createElement('a');
       link.download = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;

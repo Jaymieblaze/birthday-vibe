@@ -69,36 +69,36 @@ export default function Home() {
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <select
-                    value={formData.birthDate.split('-')[2] || ''}
+                    value={formData.birthDate ? formData.birthDate.split('-')[2] : ''}
                     onChange={(e) => {
-                      const month = formData.birthDate.split('-')[1] || '01';
+                      const month = formData.birthDate ? formData.birthDate.split('-')[1] : '01';
                       setFormData(prev => ({ ...prev, birthDate: `2000-${month}-${e.target.value.padStart(2, '0')}` }));
                     }}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
                   >
                     <option value="">Day</option>
                     {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
-                      <option key={day} value={day}>{day}</option>
+                      <option key={day} value={day.toString().padStart(2, '0')}>{day}</option>
                     ))}
                   </select>
                   <select
-                    value={formData.birthDate.split('-')[1] || ''}
+                    value={formData.birthDate ? formData.birthDate.split('-')[1] : ''}
                     onChange={(e) => {
-                      const day = formData.birthDate.split('-')[2] || '01';
-                      setFormData(prev => ({ ...prev, birthDate: `2000-${e.target.value.padStart(2, '0')}-${day}` }));
+                      const day = formData.birthDate ? formData.birthDate.split('-')[2] : '01';
+                      setFormData(prev => ({ ...prev, birthDate: `2000-${e.target.value}-${day}` }));
                     }}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
                   >
                     <option value="">Month</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
                     <option value="10">October</option>
                     <option value="11">November</option>
                     <option value="12">December</option>
