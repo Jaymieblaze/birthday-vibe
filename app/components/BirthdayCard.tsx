@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { toPng } from 'html-to-image';
 import { Download } from 'lucide-react';
 
@@ -16,6 +16,21 @@ interface BirthdayCardProps {
 
 export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, colorScheme }: BirthdayCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        setScale(Math.min(1, containerWidth / 768));
+      }
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
   // Color scheme configurations
   const colorSchemes = {
@@ -63,30 +78,14 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     if (!cardRef.current) return;
 
     try {
-      // Store original styles
-      const originalWidth = cardRef.current.style.width;
-      const originalMaxWidth = cardRef.current.style.maxWidth;
-      const originalTransform = cardRef.current.style.transform;
-      
-      // Force desktop size for consistent capture
-      cardRef.current.style.width = '768px';
-      cardRef.current.style.maxWidth = '768px';
-      cardRef.current.style.transform = 'scale(1)';
-      
-      // Wait for layout to stabilize
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
+      // Card is already at 768px, just capture it directly
       const dataUrl = await toPng(cardRef.current, {
         quality: 1,
         pixelRatio: 3,
         cacheBust: true,
-        backgroundColor: 'transparent',
+        width: 768,
+        height: 1152,
       });
-      
-      // Restore original styles
-      cardRef.current.style.width = originalWidth;
-      cardRef.current.style.maxWidth = originalMaxWidth;
-      cardRef.current.style.transform = originalTransform;
 
       const link = document.createElement('a');
       link.download = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;
@@ -109,17 +108,23 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   const { firstName, lastName } = splitName(name);
 
   return (
-    <div className="space-y-4 flex flex-col items-center">
-      {/* Card Preview */}
-      <div 
-        ref={cardRef}
-        className="relative aspect-2/3 overflow-hidden rounded-lg shadow-2xl"
-        style={{
-          background: currentScheme.gradient,
+    <div className="flex flex-col items-center w-full" style={{ gap: '2rem' }}>
+      {/* Card Preview Container with Transform Scale */}
+      <div ref={containerRef} className="w-full max-w-[768px] overflow-visible flex justify-center">
+        <div style={{
+          transform: `scale(${scale})`,
+          transformOrigin: 'top center',
           width: '768px',
-          maxWidth: '100%',
-        }}
-      >
+          height: `${1152 * scale}px`,
+        }}>
+          <div 
+            ref={cardRef}
+            className="relative aspect-2/3 overflow-hidden rounded-lg shadow-2xl"
+            style={{
+              background: currentScheme.gradient,
+              width: '768px',
+            }}
+          >
         {/* Background decorative elements */}
         <div className="absolute inset-0 opacity-30">
           <div className={`absolute top-0 left-0 w-32 h-32 ${currentScheme.decorations[0]} rounded-full blur-3xl`}></div>
@@ -130,14 +135,14 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Section */}
-          <div className="flex justify-between items-start p-4 sm:p-6">
+          <div className="flex justify-between items-start p-6">
             {/* Happy Birthday Text */}
             <div className="relative">
-              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 sm:px-8 py-2 rounded-md shadow-lg">
-                <div className="text-yellow-100 text-sm sm:text-base font-semibold tracking-wider">HAPPY</div>
+              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-8 py-2 rounded-md shadow-lg">
+                <div className="text-yellow-100 text-base font-semibold tracking-wider">HAPPY</div>
               </div>
               <div className="mt-2">
-                <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none" style={{
+                <h1 className="text-8xl font-black tracking-tight leading-none" style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -145,7 +150,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 }}>
                   BIRTH
                 </h1>
-                <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none" style={{
+                <h1 className="text-8xl font-black tracking-tight leading-none" style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -158,7 +163,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Church Logo and Name */}
             <div className="flex flex-col items-center gap-1">
-              <div className="w-25 h-25 sm:w-28 sm:h-28 md:w-36 md:h-36 flex items-center justify-center">
+              <div className="w-36 h-36 flex items-center justify-center">
                 <img 
                   src="/lmm-logo.png" 
                   alt="Church Logo" 
@@ -267,7 +272,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Name */}
             <div className="space-y-1">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-wide leading-none" style={{
+              <h2 className="text-4xl font-black tracking-wide leading-none" style={{
                 background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -277,7 +282,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 {firstName}
               </h2>
               {lastName && (
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold tracking-widest text-gray-800">
+                <h3 className="text-2xl font-bold tracking-widest text-gray-800">
                   {lastName.toUpperCase()}
                 </h3>
               )}
@@ -291,6 +296,8 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             </p>
           </div>
         </div>
+        </div>
+      </div>
       </div>
 
       {/* Download Button */}
