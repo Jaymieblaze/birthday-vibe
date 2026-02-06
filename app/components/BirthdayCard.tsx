@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { toPng } from 'html-to-image';
 import { Download } from 'lucide-react';
 
@@ -16,6 +16,21 @@ interface BirthdayCardProps {
 
 export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, colorScheme }: BirthdayCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(1);
+
+  useEffect(() => {
+    const calculateZoom = () => {
+      const windowWidth = window.innerWidth;
+      const cardWidth = 768;
+      const padding = 32;
+      const availableWidth = windowWidth - padding;
+      setZoom(Math.min(1, availableWidth / cardWidth));
+    };
+
+    calculateZoom();
+    window.addEventListener('resize', calculateZoom);
+    return () => window.removeEventListener('resize', calculateZoom);
+  }, []);
 
   // Color scheme configurations
   const colorSchemes = {
@@ -63,17 +78,13 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     if (!cardRef.current) return;
 
     try {
-      // Store original styles
-      const originalWidth = cardRef.current.style.width;
-      const originalMaxWidth = cardRef.current.style.maxWidth;
-      const originalTransform = cardRef.current.style.transform;
+      // Store original zoom
+      const originalZoom = cardRef.current.style.zoom;
       
-      // Force desktop size for consistent capture
-      cardRef.current.style.width = '768px';
-      cardRef.current.style.maxWidth = '768px';
-      cardRef.current.style.transform = 'scale(1)';
+      // Force zoom to 1 for full resolution capture
+      cardRef.current.style.zoom = '1';
       
-      // Wait for layout to stabilize
+      // Wait for layout
       await new Promise(resolve => setTimeout(resolve, 300));
       
       const dataUrl = await toPng(cardRef.current, {
@@ -83,10 +94,8 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         backgroundColor: 'transparent',
       });
       
-      // Restore original styles
-      cardRef.current.style.width = originalWidth;
-      cardRef.current.style.maxWidth = originalMaxWidth;
-      cardRef.current.style.transform = originalTransform;
+      // Restore original zoom
+      cardRef.current.style.zoom = originalZoom;
 
       const link = document.createElement('a');
       link.download = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;
@@ -117,9 +126,10 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         style={{
           background: currentScheme.gradient,
           width: '768px',
-          maxWidth: '100%',
+          zoom: zoom,
         }}
       >
+
         {/* Background decorative elements */}
         <div className="absolute inset-0 opacity-30">
           <div className={`absolute top-0 left-0 w-32 h-32 ${currentScheme.decorations[0]} rounded-full blur-3xl`}></div>
@@ -133,7 +143,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <div className="flex justify-between items-start p-4 sm:p-6">
             {/* Happy Birthday Text */}
             <div className="relative">
-              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 sm:px-8 py-2 rounded-md shadow-lg">
+              <div className="bg-linear-to-r from-yellow-600 to-yellow-500 px-6 sm:px-8 py-2 rounded-md shadow-lg">
                 <div className="text-yellow-100 text-sm sm:text-base font-semibold tracking-wider">HAPPY</div>
               </div>
               <div className="mt-2">
