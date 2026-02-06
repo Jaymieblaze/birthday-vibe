@@ -133,11 +133,11 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <div className="flex justify-between items-start p-4 sm:p-6">
             {/* Happy Birthday Text */}
             <div className="relative">
-              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-3 sm:px-4 py-1 rounded-md shadow-lg">
-                <div className="text-yellow-100 text-[10px] sm:text-xs font-semibold tracking-wider">HAPPY</div>
+              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 sm:px-8 py-2 rounded-md shadow-lg">
+                <div className="text-yellow-100 text-sm sm:text-base font-semibold tracking-wider">HAPPY</div>
               </div>
-              <div className="mt-1">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-none" style={{
+              <div className="mt-2">
+                <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none" style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -145,7 +145,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 }}>
                   BIRTH
                 </h1>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-none" style={{
+                <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none" style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -158,17 +158,17 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Church Logo and Name */}
             <div className="flex flex-col items-center gap-1">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 flex items-center justify-center">
                 <img 
                   src="/lmm-logo.png" 
                   alt="Church Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="text-white text-sm font-bold text-center leading-tight">
+              <div className="text-white text-xl font-bold text-center leading-tight">
                 LMM LSZA
               </div>
-              <div className="text-white text-xs font-semibold text-center leading-tight px-2">
+              <div className="text-white text-base font-semibold text-center leading-tight px-2">
                 {church}
               </div>
             </div>
