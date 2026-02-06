@@ -114,14 +114,14 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Section */}
-          <div className="flex justify-between items-start p-6">
+          <div className="flex justify-between items-start p-4 sm:p-6">
             {/* Happy Birthday Text */}
             <div className="relative">
-              <div className="bg-linear-to-r from-yellow-600 to-yellow-500 px-4 py-1 rounded-md shadow-lg">
-                <div className="text-yellow-100 text-xs font-semibold tracking-wider">HAPPY</div>
+              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-3 sm:px-4 py-1 rounded-md shadow-lg">
+                <div className="text-yellow-100 text-[10px] sm:text-xs font-semibold tracking-wider">HAPPY</div>
               </div>
               <div className="mt-1">
-                <h1 className="text-5xl font-black tracking-tight leading-none" style={{
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-none" style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -129,7 +129,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 }}>
                   BIRTH
                 </h1>
-                <h1 className="text-5xl font-black tracking-tight leading-none" style={{
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-none" style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -142,7 +142,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Church Logo and Name */}
             <div className="flex flex-col items-center gap-1">
-              <div className="w-20 h-20 flex items-center justify-center">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center">
                 <img 
                   src="/lmm-logo.png" 
                   alt="Church Logo" 
@@ -251,7 +251,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Name */}
             <div className="space-y-1">
-              <h2 className="text-4xl font-black tracking-wide leading-none" style={{
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-wide leading-none" style={{
                 background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -261,7 +261,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 {firstName}
               </h2>
               {lastName && (
-                <h3 className="text-2xl font-bold tracking-widest text-gray-800">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold tracking-widest text-gray-800">
                   {lastName.toUpperCase()}
                 </h3>
               )}
