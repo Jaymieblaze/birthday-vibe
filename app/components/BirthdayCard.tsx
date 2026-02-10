@@ -12,9 +12,10 @@ interface BirthdayCardProps {
   photo: string | null;
   secondPhoto: string | null;
   colorScheme: 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint';
+  logo: string;
 }
 
-export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, colorScheme }: BirthdayCardProps) {
+export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, colorScheme, logo }: BirthdayCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -165,14 +166,16 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             <div className="flex flex-col items-center gap-1 mr-8 mt-8">
               <div className="w-36 h-36 flex items-center justify-center">
                 <img 
-                  src="/lmm-logo.png" 
+                  src={`/${logo}`}
                   alt="Church Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="text-white text-xl font-bold text-center leading-tight">
-                LMM LSZA
-              </div>
+              {logo === 'lmm-logo.png' && (
+                <div className="text-white text-xl font-bold text-center leading-tight">
+                  LMM LSZA
+                </div>
+              )}
               <div className="text-white text-base font-semibold text-center leading-tight px-2">
                 {church}
               </div>
@@ -263,7 +266,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Bottom Section - Name */}
-          <div className="pb-8 px-6 text-center space-y-2">
+          <div className="pb-4 px-6 pt-4 text-center space-y-2">
 
             {/* Title */}
             <div className="text-gray-800 text-sm font-semibold tracking-widest">
@@ -272,12 +275,13 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Name */}
             <div className="space-y-1">
-              <h2 className="text-4xl font-black tracking-wide leading-none" style={{
+              <h2 className="font-black tracking-wide leading-none" style={{
                 background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 textShadow: '2px 2px 8px rgba(0,0,0,0.3)',
                 fontFamily: 'serif',
+                fontSize: '54px',
               }}>
                 {firstName}
               </h2>
