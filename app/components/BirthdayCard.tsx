@@ -83,6 +83,11 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     const loadingToast = toast.loading('Preparing your birthday card...');
 
     try {
+      // Fetch Google Fonts CSS to inline it and avoid CORS issues
+      const fontCSS = await fetch(
+        'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap'
+      ).then(res => res.text()).catch(() => '');
+
       // Card is already at 768px, just capture it directly
       const dataUrl = await toPng(cardRef.current, {
         quality: 1,
@@ -90,6 +95,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         cacheBust: true,
         width: 768,
         height: 1152,
+        fontEmbedCSS: fontCSS,
       });
 
       const link = document.createElement('a');
