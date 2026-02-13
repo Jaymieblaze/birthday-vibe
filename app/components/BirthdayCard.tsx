@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { toPng } from 'html-to-image';
 import { Download } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface BirthdayCardProps {
   name: string;
@@ -78,6 +79,9 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   const handleDownload = async () => {
     if (!cardRef.current) return;
 
+    // Show loading toast
+    const loadingToast = toast.loading('Preparing your birthday card...');
+
     try {
       // Card is already at 768px, just capture it directly
       const dataUrl = await toPng(cardRef.current, {
@@ -92,9 +96,20 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
       link.download = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;
       link.href = dataUrl;
       link.click();
+
+      // Success toast
+      toast.success('Birthday card downloaded successfully!', {
+        id: loadingToast,
+        description: `Saved as birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`,
+      });
     } catch (err) {
       console.error('Error generating image:', err);
-      alert('Failed to download card. Please try again.');
+      
+      // Error toast
+      toast.error('Failed to download card', {
+        id: loadingToast,
+        description: 'Please try again or check your browser settings.',
+      });
     }
   };
 

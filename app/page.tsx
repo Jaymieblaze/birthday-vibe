@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import BirthdayCard from './components/BirthdayCard';
+import { toast } from 'sonner';
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -18,10 +19,39 @@ export default function Home() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error('Invalid file type', {
+          description: 'Please upload an image file (JPG, PNG, etc.)'
+        });
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('File too large', {
+          description: 'Please upload an image smaller than 5MB'
+        });
+        return;
+      }
+
+      const loadingToast = toast.loading('Uploading main photo...');
       const reader = new FileReader();
+      
       reader.onloadend = () => {
         setFormData(prev => ({ ...prev, photo: reader.result as string }));
+        toast.success('Main photo uploaded successfully!', {
+          id: loadingToast,
+        });
       };
+      
+      reader.onerror = () => {
+        toast.error('Failed to upload photo', {
+          id: loadingToast,
+          description: 'Please try again'
+        });
+      };
+      
       reader.readAsDataURL(file);
     }
   };
@@ -29,10 +59,39 @@ export default function Home() {
   const handleSecondImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error('Invalid file type', {
+          description: 'Please upload an image file (JPG, PNG, etc.)'
+        });
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('File too large', {
+          description: 'Please upload an image smaller than 5MB'
+        });
+        return;
+      }
+
+      const loadingToast = toast.loading('Uploading second photo...');
       const reader = new FileReader();
+      
       reader.onloadend = () => {
         setFormData(prev => ({ ...prev, secondPhoto: reader.result as string }));
+        toast.success('Second photo uploaded successfully!', {
+          id: loadingToast,
+        });
       };
+      
+      reader.onerror = () => {
+        toast.error('Failed to upload photo', {
+          id: loadingToast,
+          description: 'Please try again'
+        });
+      };
+      
       reader.readAsDataURL(file);
     }
   };
