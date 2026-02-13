@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import BirthdayCard from './components/BirthdayCard';
 import { toast } from 'sonner';
 
@@ -19,6 +19,8 @@ export default function Home() {
   });
   const [isLoaded, setIsLoaded] = useState(false);
   const [showClearDialog, setShowClearDialog] = useState(false);
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const secondPhotoInputRef = useRef<HTMLInputElement>(null);
 
   // Load saved data from localStorage on mount
   useEffect(() => {
@@ -266,6 +268,7 @@ export default function Home() {
                   Upload Main Photo *
                 </label>
                 <input
+                  ref={photoInputRef}
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
@@ -278,6 +281,7 @@ export default function Home() {
                   Upload Second Photo (Optional)
                 </label>
                 <input
+                  ref={secondPhotoInputRef}
                   type="file"
                   accept="image/*"
                   onChange={handleSecondImageUpload}
@@ -347,6 +351,9 @@ export default function Home() {
                   };
                   setFormData(defaultData);
                   localStorage.removeItem(STORAGE_KEY);
+                  // Clear file input fields
+                  if (photoInputRef.current) photoInputRef.current.value = '';
+                  if (secondPhotoInputRef.current) secondPhotoInputRef.current.value = '';
                   setShowClearDialog(false);
                   toast.success('Form data cleared!', {
                     description: 'All fields have been reset',
