@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BirthdayCard from './components/BirthdayCard';
 import { toast } from 'sonner';
+
+const STORAGE_KEY = 'birthday-card-form-data';
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -15,6 +17,37 @@ export default function Home() {
     colorScheme: 'purple-pink' as 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint',
     logo: 'lmm-logo.png' as string,
   });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load saved data from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsedData = JSON.parse(saved);
+        setFormData(parsedData);
+        toast.success('Previous data restored!', {
+          description: 'Your form data has been recovered',
+          duration: 3000,
+        });
+      }
+    } catch (error) {
+      console.error('Error loading saved data:', error);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
+
+  // Save form data to localStorage whenever it changes
+  useEffect(() => {
+    if (isLoaded) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      } catch (error) {
+        console.error('Error saving data:', error);
+      }
+    }
+  }, [formData, isLoaded]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -254,6 +287,32 @@ export default function Home() {
               <p className="text-sm text-gray-500 mt-4">
                 * Required fields
               </p>
+
+              {/* Clear Data Button */}
+              <button
+                onClick={() => {
+                  if (confirm('Are you sure you want to clear all form data? This cannot be undone.')) {
+                    const defaultData = {
+                      name: '',
+                      birthDate: '',
+                      church: '',
+                      title: 'ESTEEMED SISTER',
+                      photo: null,
+                      secondPhoto: null,
+                      colorScheme: 'purple-pink' as const,
+                      logo: 'lmm-logo.png',
+                    };
+                    setFormData(defaultData);
+                    localStorage.removeItem(STORAGE_KEY);
+                    toast.success('Form data cleared!', {
+                      description: 'All fields have been reset',
+                    });
+                  }
+                }}
+                className="w-full mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors border border-gray-300"
+              >
+                Clear All Data
+              </button>
             </div>
           </div>
 

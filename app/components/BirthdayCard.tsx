@@ -85,7 +85,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     try {
       // Fetch Google Fonts CSS to inline it and avoid CORS issues
       const fontCSS = await fetch(
-        'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap'
+        'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&family=Cinzel:wght@600;700;800&display=swap'
       ).then(res => res.text()).catch(() => '');
 
       // Card is already at 768px, just capture it directly
