@@ -141,12 +141,21 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         }}>
           <div 
             ref={cardRef}
-            className="relative aspect-2/3 overflow-hidden rounded-lg shadow-2xl"
+            className="relative aspect-2/3 overflow-hidden rounded-lg"
             style={{
               background: currentScheme.gradient,
               width: '768px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 20px 40px -15px rgba(0, 0, 0, 0.3), 0 0 80px -10px rgba(0, 0, 0, 0.15)',
             }}
           >
+        {/* Geometric Pattern Overlay */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+          backgroundImage: `
+            repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px),
+            repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px)
+          `,
+        }}></div>
+
         {/* Background decorative elements */}
         <div className="absolute inset-0 opacity-30">
           <div className={`absolute top-0 left-0 w-32 h-32 ${currentScheme.decorations[0]} rounded-full blur-3xl`}></div>
@@ -158,17 +167,22 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Section */}
           <div className="flex justify-between items-start p-6">
-            {/* Happy Birthday Text */}
+            {/* Happy Birthday Text with Glow */}
             <div className="relative ml-8 mt-8">
-              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 py-2 rounded-md shadow-lg">
-                <div className="text-yellow-100 font-semibold tracking-wider" style={{ fontSize: '20px' }}>HAPPY</div>
+              <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 py-2 rounded-md" style={{
+                boxShadow: '0 4px 14px rgba(0,0,0,0.3), 0 0 8px rgba(255, 215, 0, 0.3)',
+              }}>
+                <div className="text-yellow-100 font-semibold tracking-wider" style={{ 
+                  fontSize: '20px',
+                  textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                }}>HAPPY</div>
               </div>
               <div className="mt-2">
                 <h1 className="text-8xl font-black tracking-tight leading-none" style={{
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                  filter: 'drop-shadow(0 0 6px rgba(255, 215, 0, 0.4)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))',
                 }}>
                   BIRTH
                 </h1>
@@ -176,7 +190,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                   background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                  filter: 'drop-shadow(0 0 6px rgba(255, 215, 0, 0.4)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))',
                 }}>
                   DAY
                 </h1>
@@ -220,17 +234,22 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 <div className="w-6 h-6 rounded-full bg-pink-300 opacity-80 blur-sm"></div>
               </div>
 
-              {/* Gold Frame */}
+              {/* Gold Frame with Glow */}
               <div className="relative w-full aspect-square">
-                {/* Outer gold border */}
+                {/* Outer gold border with glow effect */}
                 <div className="absolute inset-0 rounded-full" style={{
                   background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
                   padding: '8px',
+                  boxShadow: '0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 165, 0, 0.4), 0 0 75px rgba(255, 215, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.3)',
                 }}>
                   {/* Inner frame */}
-                  <div className="w-full h-full rounded-full bg-linear-to-br from-yellow-600 to-yellow-700 p-1">
+                  <div className="w-full h-full rounded-full bg-linear-to-br from-yellow-600 to-yellow-700 p-1" style={{
+                    boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.3)',
+                  }}>
                     {/* Photo container */}
-                    <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 border-4 border-white">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 border-4 border-white" style={{
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.25), inset 0 2px 4px rgba(0,0,0,0.1)',
+                    }}>
                       {photo ? (
                         <img 
                           src={photo} 
@@ -250,15 +269,19 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
                 {/* Crown decoration on top */}
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-                  <div className="w-12 h-8 bg-linear-to-b from-yellow-400 to-yellow-600 rounded-t-full shadow-lg"></div>
+                  <div className="w-12 h-8 bg-linear-to-b from-yellow-400 to-yellow-600 rounded-t-full" style={{
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3), 0 0 20px rgba(255, 215, 0, 0.5)',
+                    filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.2))',
+                  }}></div>
                 </div>
 
                 {/* Second Photo - Bottom Left Overlap */}
                 {secondPhoto && (
-                  <div className="absolute bottom-0 left-0 w-[35%] aspect-square z-10">
+                  <div className="absolute bottom-0 w-[40%] aspect-square z-10" style={{ left: '-25px' }}>
                     <div className="w-full h-full rounded-full" style={{
                       background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
                       padding: '4px',
+                      boxShadow: '0 0 20px rgba(255, 215, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.3)',
                     }}>
                       <div className="w-full h-full rounded-full bg-linear-to-br from-yellow-600 to-yellow-700 p-1">
                         <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 border-2 border-white">
@@ -275,10 +298,17 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
                 {/* Date Badge - Right Side Overlap */}
                 <div className="absolute top-[60%] -right-12 -translate-y-1/2 z-10">
-                  <div className="bg-linear-to-br from-yellow-500 to-yellow-700 rounded-full w-32 h-32 flex items-center justify-center border-4 border-yellow-300 shadow-lg">
-                    <div className="text-white text-center">
-                      <div className="text-lg font-bold">{formatDate(birthDate).split(' ')[0]}</div>
-                      <div className="text-sm font-semibold leading-tight">{formatDate(birthDate).split(' ')[1]}</div>
+                  <div className="bg-linear-to-br from-yellow-500 to-yellow-700 rounded-full flex items-center justify-center border-yellow-300" style={{
+                    width: '147px',
+                    height: '147px',
+                    borderWidth: '5px',
+                    boxShadow: '0 0 25px rgba(255, 215, 0, 0.6), 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 50px rgba(255, 165, 0, 0.3)',
+                  }}>
+                    <div className="text-white text-center" style={{
+                      textShadow: '0 2px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)',
+                    }}>
+                      <div className="font-bold" style={{ fontSize: '21px' }}>{formatDate(birthDate).split(' ')[0]}</div>
+                      <div className="font-semibold leading-tight" style={{ fontSize: '16px' }}>{formatDate(birthDate).split(' ')[1]}</div>
                     </div>
                   </div>
                 </div>
@@ -300,14 +330,17 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                textShadow: '2px 2px 8px rgba(0,0,0,0.3)',
                 fontFamily: 'serif',
                 fontSize: '54px',
+                filter: 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 8px rgba(0,0,0,0.4))',
               }}>
                 {firstName}
               </h2>
               {lastName && (
-                <h3 className="text-2xl font-bold tracking-widest text-gray-800">
+                <h3 className="text-2xl font-bold tracking-widest" style={{
+                  color: '#1f2937',
+                  textShadow: '0 2px 6px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2)',
+                }}>
                   {lastName.toUpperCase()}
                 </h3>
               )}
@@ -315,8 +348,12 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Footer Message */}
-          <div className="bg-white py-4">
-            <p className="text-center text-gray-800 text-xl font-bold tracking-[0.3em]">
+          <div className="bg-white py-4" style={{
+            boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
+          }}>
+            <p className="text-center text-gray-800 text-xl font-bold tracking-[0.3em]" style={{
+              textShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            }}>
               WE LOVE YOU DEARLY!
             </p>
           </div>
