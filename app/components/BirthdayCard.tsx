@@ -207,22 +207,26 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 />
               </div>
               {logo === 'lmm-logo.png' && (
-                <div className="text-white text-center leading-tight" style={{
+                <div className="text-white text-center" style={{
                   fontFamily: 'Cinzel, serif',
                   fontSize: '22px',
                   fontWeight: 700,
                   letterSpacing: '0.1em',
                   textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)',
+                  lineHeight: '1.2',
+                  whiteSpace: 'nowrap',
                 }}>
                   LMM LSZA
                 </div>
               )}
-              <div className="text-white text-center leading-tight px-2" style={{
+              <div className="text-white text-center px-2" style={{
                 fontFamily: 'Montserrat, sans-serif',
-                fontSize: '16px',
+                fontSize: '17px',
                 fontWeight: 600,
                 letterSpacing: '0.05em',
                 textShadow: '0 2px 6px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3)',
+                lineHeight: '1.3',
+                textTransform: 'uppercase',
               }}>
                 {church}
               </div>
