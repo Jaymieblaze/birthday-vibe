@@ -207,11 +207,23 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 />
               </div>
               {logo === 'lmm-logo.png' && (
-                <div className="text-white text-xl font-bold text-center leading-tight">
+                <div className="text-white text-center leading-tight" style={{
+                  fontFamily: 'Cinzel, serif',
+                  fontSize: '22px',
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)',
+                }}>
                   LMM LSZA
                 </div>
               )}
-              <div className="text-white text-base font-semibold text-center leading-tight px-2">
+              <div className="text-white text-center leading-tight px-2" style={{
+                fontFamily: 'Montserrat, sans-serif',
+                fontSize: '16px',
+                fontWeight: 600,
+                letterSpacing: '0.05em',
+                textShadow: '0 2px 6px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3)',
+              }}>
                 {church}
               </div>
             </div>
@@ -307,8 +319,20 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                     <div className="text-white text-center" style={{
                       textShadow: '0 2px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)',
                     }}>
-                      <div className="font-bold" style={{ fontSize: '21px' }}>{formatDate(birthDate).split(' ')[0]}</div>
-                      <div className="font-semibold leading-tight" style={{ fontSize: '16px' }}>{formatDate(birthDate).split(' ')[1]}</div>
+                      <div style={{ 
+                        fontFamily: 'Cinzel, serif',
+                        fontSize: '26px',
+                        fontWeight: 800,
+                        letterSpacing: '0.02em',
+                      }}>{formatDate(birthDate).split(' ')[0]}</div>
+                      <div style={{ 
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontSize: '15px',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em',
+                        lineHeight: '1.2',
+                        marginTop: '2px',
+                      }}>{formatDate(birthDate).split(' ')[1]}</div>
                     </div>
                   </div>
                 </div>
