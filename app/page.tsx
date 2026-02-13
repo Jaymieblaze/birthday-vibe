@@ -320,7 +320,7 @@ export default function Home() {
       {showClearDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-white/30">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all">
-            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+            <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
               Clear All Data?
             </h3>
             <p className="text-gray-600 mb-6">
