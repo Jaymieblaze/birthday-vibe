@@ -18,6 +18,7 @@ export default function Home() {
     logo: 'lmm-logo.png' as string,
   });
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showClearDialog, setShowClearDialog] = useState(false);
 
   // Load saved data from localStorage on mount
   useEffect(() => {
@@ -290,25 +291,7 @@ export default function Home() {
 
               {/* Clear Data Button */}
               <button
-                onClick={() => {
-                  if (confirm('Are you sure you want to clear all form data? This cannot be undone.')) {
-                    const defaultData = {
-                      name: '',
-                      birthDate: '',
-                      church: '',
-                      title: 'ESTEEMED SISTER',
-                      photo: null,
-                      secondPhoto: null,
-                      colorScheme: 'purple-pink' as const,
-                      logo: 'lmm-logo.png',
-                    };
-                    setFormData(defaultData);
-                    localStorage.removeItem(STORAGE_KEY);
-                    toast.success('Form data cleared!', {
-                      description: 'All fields have been reset',
-                    });
-                  }
-                }}
+                onClick={() => setShowClearDialog(true)}
                 className="w-full mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors border border-gray-300"
               >
                 Clear All Data
@@ -332,6 +315,51 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Clear Data Dialog */}
+      {showClearDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-white/30">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all">
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+              Clear All Data?
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to clear all form data? This action cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowClearDialog(false)}
+                className="flex-1 px-4 py-3 rounded-lg font-semibold border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  const defaultData = {
+                    name: '',
+                    birthDate: '',
+                    church: '',
+                    title: 'ESTEEMED SISTER',
+                    photo: null,
+                    secondPhoto: null,
+                    colorScheme: 'purple-pink' as const,
+                    logo: 'lmm-logo.png',
+                  };
+                  setFormData(defaultData);
+                  localStorage.removeItem(STORAGE_KEY);
+                  setShowClearDialog(false);
+                  toast.success('Form data cleared!', {
+                    description: 'All fields have been reset',
+                  });
+                }}
+                className="flex-1 px-4 py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg"
+              >
+                Clear Data
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
