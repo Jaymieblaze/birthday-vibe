@@ -79,6 +79,19 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   const handleDownload = async () => {
     if (!cardRef.current) return;
 
+    // Check for missing required fields
+    const missingFields = [];
+    if (!name) missingFields.push('Name');
+    if (!birthDate) missingFields.push('Birth Date');
+    if (!photo) missingFields.push('Photo');
+
+    if (missingFields.length > 0) {
+      toast.error('Required fields missing', {
+        description: `Please provide: ${missingFields.join(', ')}`,
+      });
+      return;
+    }
+
     // Show loading toast
     const loadingToast = toast.loading('Preparing your birthday card...');
 
@@ -393,18 +406,11 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
       {/* Download Button */}
       <button
         onClick={handleDownload}
-        disabled={!name || !birthDate || !photo}
-        className="w-full bg-linear-to-r from-pink-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+        className="w-full bg-linear-to-r from-pink-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg"
       >
         <Download size={20} />
         Download E-Card
       </button>
-
-      {(!name || !birthDate || !photo) && (
-        <p className="text-sm text-center text-gray-500">
-          Please fill in all required fields to download
-        </p>
-      )}
     </div>
   );
 }
