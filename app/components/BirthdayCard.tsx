@@ -12,11 +12,12 @@ interface BirthdayCardProps {
   title: string;
   photo: string | null;
   secondPhoto: string | null;
+  thirdPhoto: string | null;
   colorScheme: 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint';
   logo: string;
 }
 
-export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, colorScheme, logo }: BirthdayCardProps) {
+export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, thirdPhoto, colorScheme, logo }: BirthdayCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -303,6 +304,27 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                     filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.2))',
                   }}></div>
                 </div>
+
+                {/* Third Photo - Top Left Overlap */}
+                {thirdPhoto && (
+                  <div className="absolute top-20 w-[30%] aspect-square z-10" style={{ left: '-45px' }}>
+                    <div className="w-full h-full rounded-full" style={{
+                      background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
+                      padding: '4px',
+                      boxShadow: '0 0 20px rgba(255, 215, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.3)',
+                    }}>
+                      <div className="w-full h-full rounded-full bg-linear-to-br from-yellow-600 to-yellow-700 p-1">
+                        <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 border-2 border-white">
+                          <img 
+                            src={thirdPhoto} 
+                            alt="Third photo"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Second Photo - Bottom Left Overlap */}
                 {secondPhoto && (

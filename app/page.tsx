@@ -14,6 +14,7 @@ export default function Home() {
     title: 'ESTEEMED SISTER',
     photo: null as string | null,
     secondPhoto: null as string | null,
+    thirdPhoto: null as string | null,
     colorScheme: 'purple-pink' as 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint',
     logo: 'lmm-logo.png' as string,
   });
@@ -21,6 +22,7 @@ export default function Home() {
   const [showClearDialog, setShowClearDialog] = useState(false);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const secondPhotoInputRef = useRef<HTMLInputElement>(null);
+  const thirdPhotoInputRef = useRef<HTMLInputElement>(null);
 
   // Load saved data from localStorage on mount
   useEffect(() => {
@@ -117,6 +119,46 @@ export default function Home() {
       reader.onloadend = () => {
         setFormData(prev => ({ ...prev, secondPhoto: reader.result as string }));
         toast.success('Second photo uploaded successfully!', {
+          id: loadingToast,
+        });
+      };
+      
+      reader.onerror = () => {
+        toast.error('Failed to upload photo', {
+          id: loadingToast,
+          description: 'Please try again'
+        });
+      };
+      
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleThirdImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error('Invalid file type', {
+          description: 'Please upload an image file (JPG, PNG, etc.)'
+        });
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('File too large', {
+          description: 'Please upload an image smaller than 5MB'
+        });
+        return;
+      }
+
+      const loadingToast = toast.loading('Uploading third photo...');
+      const reader = new FileReader();
+      
+      reader.onloadend = () => {
+        setFormData(prev => ({ ...prev, thirdPhoto: reader.result as string }));
+        toast.success('Third photo uploaded successfully!', {
           id: loadingToast,
         });
       };
@@ -289,6 +331,19 @@ export default function Home() {
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Upload Third Photo (Optional)
+                </label>
+                <input
+                  ref={thirdPhotoInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleThirdImageUpload}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                />
+              </div>
+
               <p className="text-sm text-gray-500 mt-4">
                 * Required fields
               </p>
@@ -313,6 +368,7 @@ export default function Home() {
               title={formData.title}
               photo={formData.photo}
               secondPhoto={formData.secondPhoto}
+              thirdPhoto={formData.thirdPhoto}
               colorScheme={formData.colorScheme}
               logo={formData.logo}
             />
@@ -346,6 +402,7 @@ export default function Home() {
                     title: 'ESTEEMED SISTER',
                     photo: null,
                     secondPhoto: null,
+                    thirdPhoto: null,
                     colorScheme: 'purple-pink' as const,
                     logo: 'lmm-logo.png',
                   };
@@ -354,6 +411,7 @@ export default function Home() {
                   // Clear file input fields
                   if (photoInputRef.current) photoInputRef.current.value = '';
                   if (secondPhotoInputRef.current) secondPhotoInputRef.current.value = '';
+                  if (thirdPhotoInputRef.current) thirdPhotoInputRef.current.value = '';
                   setShowClearDialog(false);
                   toast.success('Form data cleared!', {
                     description: 'All fields have been reset',
