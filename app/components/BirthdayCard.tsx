@@ -123,6 +123,15 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         reader.readAsDataURL(fontBlob);
       });
       
+      // Fetch the Remix Icon font
+      const remixFontResponse = await fetch('/fonts/remixicon/remixicon.woff2');
+      const remixFontBlob = await remixFontResponse.blob();
+      const remixFontBase64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(remixFontBlob);
+      });
+      
       // Create font CSS with embedded font data
       const fontCSS = `
         @font-face {
@@ -130,6 +139,11 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           font-style: normal;
           font-weight: 400;
           src: url('${fontBase64}') format('truetype');
+        }
+        @font-face {
+          font-family: 'remixicon';
+          src: url('${remixFontBase64}') format('woff2');
+          font-display: swap;
         }
       `;
       
