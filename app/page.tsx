@@ -63,7 +63,7 @@ const BACKGROUNDS: Background[] = [
     id: 'bg-3',
     name: 'Glitter 2',
     type: 'image',
-    value: '/backgrounds/glitter_2.png'
+    value: '/backgrounds/glitter_2.jpg'
   },
   {
     id: 'bg-4',
@@ -76,6 +76,12 @@ const BACKGROUNDS: Background[] = [
     name: 'Gold Wall',
     type: 'image',
     value: '/backgrounds/gold_wall.jpg'
+  },
+  {
+    id: 'bg-6',
+    name: 'Sparks',
+    type: 'image',
+    value: '/backgrounds/sparks.jpg'
   },
 ];
 
