@@ -114,8 +114,8 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
       // Ensure all fonts are loaded before capturing
       await document.fonts.ready;
       
-      // Small delay to ensure fonts are fully rendered
-      await new Promise(resolve => setTimeout(resolve, 200));
+      // Wait for fonts to be fully rendered
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       // Card is already at 768px, just capture it directly
       const dataUrl = await toPng(cardRef.current, {
