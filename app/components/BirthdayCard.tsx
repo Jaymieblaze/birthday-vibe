@@ -530,7 +530,9 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <div className="pb-2 px-6 pt-4 text-center space-y-2 relative z-20">
 
             {/* Title */}
-            <div className="text-gray-800 text-base font-semibold tracking-widest">
+            <div className="text-base font-semibold tracking-widest" style={{
+              color: background?.type === 'image' ? '#f3f4f6' : '#1f2937',
+            }}>
               {title}
             </div>
 
@@ -550,8 +552,8 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
               </h2>
               {lastName && (
                 <h3 className="text-2xl font-bold tracking-widest" style={{
-                  color: '#1f2937',
-                  textShadow: '0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.1)',
+                  color: background?.type === 'image' ? '#f3f4f6' : '#1f2937',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.3)',
                   marginTop: firstNameHasDescenders ? '0' : '-12px',
                 }}>
                   {lastName.toUpperCase()}
