@@ -212,12 +212,42 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <div className={`absolute bottom-20 left-10 w-36 h-36 ${currentScheme.decorations[2]} rounded-full blur-3xl`}></div>
         </div>
 
+        {/* Scattered Stars Background */}
+        <div className="absolute inset-0 pointer-events-none opacity-40">
+          <i className="ri-star-line absolute text-yellow-300 text-4xl blur-[1px]" style={{ top: '8%', left: '8%', transform: 'rotate(-25deg)' }}></i>
+          <i className="ri-star-fill absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '12%', right: '12%', transform: 'rotate(45deg)' }}></i>
+          <i className="ri-star-line absolute text-yellow-200 text-3xl blur-[1px]" style={{ top: '75%', left: '6%', transform: 'rotate(15deg)' }}></i>
+          <i className="ri-star-fill absolute text-yellow-300 text-xl blur-[1px]" style={{ top: '82%', right: '10%', transform: 'rotate(-30deg)' }}></i>
+          <i className="ri-star-line absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '88%', left: '50%', transform: 'rotate(20deg)' }}></i>
+          <i className="ri-star-fill absolute text-yellow-200 text-3xl blur-[1px]" style={{ top: '18%', left: '50%', transform: 'rotate(-15deg)' }}></i>
+          <i className="ri-star-line absolute text-yellow-300 text-xl blur-[1px]" style={{ top: '25%', right: '5%', transform: 'rotate(35deg)' }}></i>
+          <i className="ri-star-fill absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '85%', right: '25%', transform: 'rotate(-40deg)' }}></i>
+          <i className="ri-star-line absolute text-yellow-300 text-3xl blur-[1px]" style={{ top: '78%', right: '8%', transform: 'rotate(28deg)' }}></i>
+        </div>
+
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Section */}
           <div className="flex justify-between items-start p-6">
             {/* Happy Birthday Text with Glow */}
             <div className="relative ml-8 mt-8">
+              {/* Star decorations */}
+              <i className="ri-star-line absolute -top-5 -left-3 text-yellow-300 text-[30px]" style={{
+                textShadow: '0 0 8px rgba(255, 215, 0, 0.6)',
+                transform: 'rotate(-15deg)',
+              }}></i>
+              <i className="ri-star-line absolute -top-2 -right-3 text-yellow-200 text-xl" style={{
+                textShadow: '0 0 8px rgba(255, 215, 0, 0.6)',
+                transform: 'rotate(20deg)',
+              }}></i>
+              <i className="ri-star-line absolute -top-[-8px] -right-[-40px] text-yellow-200 text-xl" style={{
+                textShadow: '0 0 8px rgba(255, 215, 0, 0.6)',
+                transform: 'rotate(20deg)',
+              }}></i>
+              <i className="ri-star-fill absolute -bottom-3 -left-5 text-yellow-400 text-lg" style={{
+                textShadow: '0 0 10px rgba(255, 215, 0, 0.8)',
+                transform: 'rotate(12deg)',
+              }}></i>
               <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 px-6 py-2 rounded-md" style={{
                 boxShadow: '0 4px 14px rgba(0,0,0,0.3), 0 0 8px rgba(255, 215, 0, 0.3)',
               }}>
