@@ -262,7 +262,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Center Section - Photo Frame */}
-          <div className="flex-1 flex items-center justify-center px-6">
+          <div className="flex-1 flex items-start justify-center px-6 relative" style={{ marginTop: '-20px' }}>
             <div className="relative w-full max-w-[85%]">
               {/* Decorative Flowers - Left */}
               <div className="absolute -left-8 top-1/2 -translate-y-1/2 space-y-2 z-0">
@@ -424,7 +424,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <div className="pb-2 px-6 pt-4 text-center space-y-2 relative z-20">
 
             {/* Title */}
-            <div className="text-gray-800 text-sm font-semibold tracking-widest">
+            <div className="text-gray-800 text-base font-semibold tracking-widest">
               {title}
             </div>
 
@@ -435,7 +435,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 fontFamily: 'Allura, cursive',
-                fontSize: '54px',
+                fontSize: '70px',
                 lineHeight: '1.2',
                 paddingBottom: '8px',
                 filter: 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 8px rgba(0,0,0,0.4))',
