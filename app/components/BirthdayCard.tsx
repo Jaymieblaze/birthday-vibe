@@ -242,7 +242,8 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <i className="ri-star-fill absolute text-yellow-200 text-3xl blur-[1px]" style={{ top: '18%', left: '50%', transform: 'rotate(-15deg)' }}></i>
           <i className="ri-star-line absolute text-yellow-300 text-xl blur-[1px]" style={{ top: '25%', right: '5%', transform: 'rotate(35deg)' }}></i>
           <i className="ri-star-fill absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '85%', right: '25%', transform: 'rotate(-40deg)' }}></i>
-          <i className="ri-star-line absolute text-yellow-300 text-3xl blur-[1px]" style={{ top: '78%', right: '8%', transform: 'rotate(28deg)' }}></i>
+          <i className="ri-star-line absolute text-yellow-300 text-5xl blur-[1px]" style={{ top: '70%', right: '8%', transform: 'rotate(28deg)' }}></i>
+          <i className="ri-star-line absolute text-yellow-300 text-5xl blur-[1px]" style={{ top: '10%', right: '30%', transform: 'rotate(28deg)' }}></i>
         </div>
 
         {/* Content */}
@@ -326,6 +327,10 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 textShadow: '0 2px 6px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3)',
                 lineHeight: '1.3',
                 textTransform: 'uppercase',
+                maxWidth: '180px',
+                wordWrap: 'break-word',
+                overflowWrap: 'break-word',
+                hyphens: 'auto',
               }}>
                 {church}
               </div>
