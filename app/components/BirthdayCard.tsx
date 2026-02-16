@@ -248,7 +248,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <div 
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'linear-gradient(to bottom, rgba(124, 58, 237, 1) 0%, rgba(124, 58, 237, 1) 15%, rgba(124, 58, 237, 0.3) 55%, rgba(124, 58, 237, 0) 80%)'
+              background: 'linear-gradient(to bottom, rgba(124, 58, 237, 1) 0%, rgba(124, 58, 237, 1) 25%, rgba(124, 58, 237, 0.6) 60%, rgba(124, 58, 237, 0.2) 85%)'
             }}
           ></div>
         ) : background?.type === 'image' ? (
