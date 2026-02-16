@@ -190,7 +190,13 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     return { firstName, lastName };
   };
 
+  // Check if the first name has descenders (letters that extend below baseline)
+  const hasDescenders = (text: string) => {
+    return /[gjpqy]/i.test(text);
+  };
+
   const { firstName, lastName } = splitName(name);
+  const firstNameHasDescenders = hasDescenders(firstName);
 
   return (
     <div className="flex flex-col items-center w-full" style={{ gap: '2rem' }}>
@@ -511,6 +517,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 <h3 className="text-2xl font-bold tracking-widest" style={{
                   color: '#1f2937',
                   textShadow: '0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.1)',
+                  marginTop: firstNameHasDescenders ? '0' : '-12px',
                 }}>
                   {lastName.toUpperCase()}
                 </h3>
