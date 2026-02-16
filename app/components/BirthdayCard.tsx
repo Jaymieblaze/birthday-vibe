@@ -500,10 +500,10 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                     width: '147px',
                     height: '147px',
                     borderWidth: '5px',
-                    boxShadow: '0 0 25px rgba(255, 215, 0, 0.6), 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 50px rgba(255, 165, 0, 0.3)',
+                    boxShadow: '0 0 15px rgba(255, 215, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(255, 165, 0, 0.2)',
                   }}>
                     <div className="text-white text-center" style={{
-                      textShadow: '0 2px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)',
+                      textShadow: '0 2px 4px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)',
                     }}>
                       <div style={{ 
                         fontFamily: 'Cinzel, serif',
