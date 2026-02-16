@@ -245,7 +245,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           >
         {/* Dark overlay for image backgrounds to ensure text readability */}
         {background?.type === 'image' && (
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30 pointer-events-none"></div>
         )}
         {/* Geometric Pattern Overlay */}
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
