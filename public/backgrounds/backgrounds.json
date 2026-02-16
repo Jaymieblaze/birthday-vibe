@@ -1,0 +1,35 @@
+{
+  "backgrounds": [
+    {
+      "id": "gradient-purple-pink",
+      "name": "Purple & Pink Gradient",
+      "type": "gradient",
+      "value": "linear-gradient(135deg, #ff6ec7 0%, #e056fd 20%, #c65df9 40%, #a855f7 60%, #9333ea 80%, #7c3aed 100%)"
+    },
+    {
+      "id": "gradient-blue-teal",
+      "name": "Blue & Teal Gradient",
+      "type": "gradient",
+      "value": "linear-gradient(135deg, #4fd1c5 0%, #38b2ac 20%, #3182ce 40%, #2c5282 60%, #2b6cb0 80%, #1e40af 100%)"
+    },
+    {
+      "id": "gradient-rose-gold",
+      "name": "Rose & Gold Gradient",
+      "type": "gradient",
+      "value": "linear-gradient(135deg, #fecaca 0%, #fca5a5 20%, #f87171 40%, #ef4444 60%, #dc2626 80%, #b91c1c 100%)"
+    },
+    {
+      "id": "gradient-coral-peach",
+      "name": "Coral & Peach Gradient",
+      "type": "gradient",
+      "value": "linear-gradient(135deg, #fed7aa 0%, #fdba74 20%, #fb923c 40%, #f97316 60%, #ea580c 80%, #dc2626 100%)"
+    },
+    {
+      "id": "gradient-lavender-mint",
+      "name": "Lavender & Mint Gradient",
+      "type": "gradient",
+      "value": "linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 20%, #a78bfa 40%, #8b5cf6 60%, #7c3aed 80%, #6d28d9 100%)"
+    }
+  ],
+  "instructions": "Add image backgrounds here with type 'image' and value as the path (e.g., '/backgrounds/bg-1.jpg')"
+}

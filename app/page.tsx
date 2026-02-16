@@ -6,6 +6,79 @@ import { toast } from 'sonner';
 
 const STORAGE_KEY = 'birthday-card-form-data';
 
+// Available backgrounds
+type BackgroundType = 'gradient' | 'image';
+
+interface Background {
+  id: string;
+  name: string;
+  type: BackgroundType;
+  value: string;
+}
+
+const BACKGROUNDS: Background[] = [
+  {
+    id: 'gradient-purple-pink',
+    name: 'Purple & Pink',
+    type: 'gradient',
+    value: 'linear-gradient(135deg, #ff6ec7 0%, #e056fd 20%, #c65df9 40%, #a855f7 60%, #9333ea 80%, #7c3aed 100%)'
+  },
+  {
+    id: 'gradient-blue-teal',
+    name: 'Blue & Teal',
+    type: 'gradient',
+    value: 'linear-gradient(135deg, #4fd1c5 0%, #38b2ac 20%, #3182ce 40%, #2c5282 60%, #2b6cb0 80%, #1e40af 100%)'
+  },
+  {
+    id: 'gradient-rose-gold',
+    name: 'Rose & Gold',
+    type: 'gradient',
+    value: 'linear-gradient(135deg, #fecaca 0%, #fca5a5 20%, #f87171 40%, #ef4444 60%, #dc2626 80%, #b91c1c 100%)'
+  },
+  {
+    id: 'gradient-coral-peach',
+    name: 'Coral & Peach',
+    type: 'gradient',
+    value: 'linear-gradient(135deg, #fed7aa 0%, #fdba74 20%, #fb923c 40%, #f97316 60%, #ea580c 80%, #dc2626 100%)'
+  },
+  {
+    id: 'gradient-lavender-mint',
+    name: 'Lavender & Mint',
+    type: 'gradient',
+    value: 'linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 20%, #a78bfa 40%, #8b5cf6 60%, #7c3aed 80%, #6d28d9 100%)'
+  },
+  {
+    id: 'bg-1',
+    name: 'Balloons',
+    type: 'image',
+    value: '/backgrounds/balloons.jpg'
+  },
+  {
+    id: 'bg-2',
+    name: 'Glitter',
+    type: 'image',
+    value: '/backgrounds/glitter.jpg'
+  },
+  {
+    id: 'bg-3',
+    name: 'Glitter 2',
+    type: 'image',
+    value: '/backgrounds/glitter_2.png'
+  },
+  {
+    id: 'bg-4',
+    name: 'Galaxy',
+    type: 'image',
+    value: '/backgrounds/galaxy_1.jpg'
+  },
+  {
+    id: 'bg-5',
+    name: 'Gold Wall',
+    type: 'image',
+    value: '/backgrounds/gold_wall.jpg'
+  },
+];
+
 export default function Home() {
   const [formData, setFormData] = useState({
     name: '',
@@ -17,6 +90,7 @@ export default function Home() {
     thirdPhoto: null as string | null,
     colorScheme: 'purple-pink' as 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint',
     logo: 'lmm-logo.png' as string,
+    backgroundId: 'gradient-purple-pink' as string,
   });
   const [isLoaded, setIsLoaded] = useState(false);
   const [showClearDialog, setShowClearDialog] = useState(false);
@@ -276,18 +350,18 @@ export default function Home() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Color Scheme
+                  Background
                 </label>
                 <select
-                  value={formData.colorScheme}
-                  onChange={(e) => setFormData(prev => ({ ...prev, colorScheme: e.target.value as any }))}
+                  value={formData.backgroundId}
+                  onChange={(e) => setFormData(prev => ({ ...prev, backgroundId: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
                 >
-                  <option value="purple-pink">Purple & Pink</option>
-                  <option value="blue-teal">Blue & Teal</option>
-                  <option value="rose-gold">Rose & Gold</option>
-                  <option value="coral-peach">Coral & Peach</option>
-                  <option value="lavender-mint">Lavender & Mint</option>
+                  {BACKGROUNDS.map(bg => (
+                    <option key={bg.id} value={bg.id}>
+                      {bg.name} {bg.type === 'image' ? '(Image)' : '(Gradient)'}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -372,6 +446,7 @@ export default function Home() {
               thirdPhoto={formData.thirdPhoto}
               colorScheme={formData.colorScheme}
               logo={formData.logo}
+              background={BACKGROUNDS.find(bg => bg.id === formData.backgroundId)}
             />
           </div>
         </div>
@@ -406,6 +481,7 @@ export default function Home() {
                     thirdPhoto: null,
                     colorScheme: 'purple-pink' as const,
                     logo: 'lmm-logo.png',
+                    backgroundId: 'gradient-purple-pink',
                   };
                   setFormData(defaultData);
                   localStorage.removeItem(STORAGE_KEY);

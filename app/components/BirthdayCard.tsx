@@ -6,6 +6,13 @@ import { Download, Edit3 } from 'lucide-react';
 import { toast } from 'sonner';
 import Moveable from 'react-moveable';
 
+interface BackgroundConfig {
+  id: string;
+  name: string;
+  type: 'gradient' | 'image';
+  value: string;
+}
+
 interface BirthdayCardProps {
   name: string;
   birthDate: string;
@@ -15,10 +22,11 @@ interface BirthdayCardProps {
   secondPhoto: string | null;
   thirdPhoto: string | null;
   colorScheme: 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint';
+  background?: BackgroundConfig;
   logo: string;
 }
 
-export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, thirdPhoto, colorScheme, logo }: BirthdayCardProps) {
+export default function BirthdayCard({ name, birthDate, church, title, photo, secondPhoto, thirdPhoto, colorScheme, background, logo }: BirthdayCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -74,6 +82,24 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   };
 
   const currentScheme = colorSchemes[colorScheme];
+
+  // Determine background style
+  const getBackgroundStyle = () => {
+    if (background) {
+      if (background.type === 'image') {
+        return {
+          backgroundImage: `url(${background.value})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        };
+      } else {
+        return { background: background.value };
+      }
+    }
+    // Fallback to color scheme gradient
+    return { background: currentScheme.gradient };
+  };
 
   const formatDate = (dateString: string) => {
     if (!dateString) return '';
@@ -212,11 +238,15 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             ref={cardRef}
             className="relative aspect-2/3 overflow-hidden rounded-lg"
             style={{
-              background: currentScheme.gradient,
+              ...getBackgroundStyle(),
               width: '768px',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 20px 40px -15px rgba(0, 0, 0, 0.3), 0 0 80px -10px rgba(0, 0, 0, 0.15)',
             }}
           >
+        {/* Dark overlay for image backgrounds to ensure text readability */}
+        {background?.type === 'image' && (
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 pointer-events-none"></div>
+        )}
         {/* Geometric Pattern Overlay */}
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
           backgroundImage: `
