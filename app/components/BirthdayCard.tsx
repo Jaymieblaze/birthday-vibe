@@ -114,6 +114,25 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
       // Ensure all fonts are loaded before capturing
       await document.fonts.ready;
       
+      // Fetch the local Allura font and convert to data URL for embedding
+      const fontResponse = await fetch('/fonts/Allura-Regular.ttf');
+      const fontBlob = await fontResponse.blob();
+      const fontBase64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(fontBlob);
+      });
+      
+      // Create font CSS with embedded font data
+      const fontCSS = `
+        @font-face {
+          font-family: 'Allura';
+          font-style: normal;
+          font-weight: 400;
+          src: url('${fontBase64}') format('truetype');
+        }
+      `;
+      
       // Wait for fonts to be fully rendered
       await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -124,6 +143,8 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         cacheBust: true,
         width: 768,
         height: 1152,
+        fontEmbedCSS: fontCSS,
+        skipFonts: true, // Skip external fonts, use our embedded one
       });
 
       const link = document.createElement('a');
