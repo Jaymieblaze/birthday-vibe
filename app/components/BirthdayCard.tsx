@@ -218,7 +218,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           <i className="ri-star-fill absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '12%', right: '12%', transform: 'rotate(45deg)' }}></i>
           <i className="ri-star-line absolute text-yellow-200 text-3xl blur-[1px]" style={{ top: '75%', left: '6%', transform: 'rotate(15deg)' }}></i>
           <i className="ri-star-fill absolute text-yellow-300 text-xl blur-[1px]" style={{ top: '82%', right: '10%', transform: 'rotate(-30deg)' }}></i>
-          <i className="ri-star-line absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '88%', left: '50%', transform: 'rotate(20deg)' }}></i>
+          <i className="ri-star-line absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '82%', left: '18%', transform: 'rotate(20deg)' }}></i>
           <i className="ri-star-fill absolute text-yellow-200 text-3xl blur-[1px]" style={{ top: '18%', left: '50%', transform: 'rotate(-15deg)' }}></i>
           <i className="ri-star-line absolute text-yellow-300 text-xl blur-[1px]" style={{ top: '25%', right: '5%', transform: 'rotate(35deg)' }}></i>
           <i className="ri-star-fill absolute text-yellow-400 text-2xl blur-[1px]" style={{ top: '85%', right: '25%', transform: 'rotate(-40deg)' }}></i>
