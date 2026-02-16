@@ -466,7 +466,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
               {lastName && (
                 <h3 className="text-2xl font-bold tracking-widest" style={{
                   color: '#1f2937',
-                  textShadow: '0 2px 6px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2)',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.1)',
                 }}>
                   {lastName.toUpperCase()}
                 </h3>
