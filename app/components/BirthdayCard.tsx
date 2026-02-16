@@ -111,10 +111,11 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     const loadingToast = toast.loading('Preparing your birthday card...');
 
     try {
-      // Fetch Google Fonts CSS to inline it and avoid CORS issues
-      const fontCSS = await fetch(
-        'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&family=Cinzel:wght@600;700;800&display=swap'
-      ).then(res => res.text()).catch(() => '');
+      // Ensure all fonts are loaded before capturing
+      await document.fonts.ready;
+      
+      // Small delay to ensure fonts are fully rendered
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       // Card is already at 768px, just capture it directly
       const dataUrl = await toPng(cardRef.current, {
@@ -123,7 +124,6 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         cacheBust: true,
         width: 768,
         height: 1152,
-        fontEmbedCSS: fontCSS,
       });
 
       const link = document.createElement('a');
@@ -305,7 +305,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                           <img 
                             src={photo} 
                             alt={name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                             style={{ pointerEvents: editMode ? 'none' : 'auto' }}
                           />
                         </div>
@@ -348,7 +348,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                             <img 
                               src={thirdPhoto} 
                               alt="Third photo"
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-contain"
                               style={{ pointerEvents: editMode ? 'none' : 'auto' }}
                             />
                           </div>
@@ -378,7 +378,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                             <img 
                               src={secondPhoto} 
                               alt="Second photo"
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-contain"
                               style={{ pointerEvents: editMode ? 'none' : 'auto' }}
                             />
                           </div>
@@ -421,7 +421,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Bottom Section - Name */}
-          <div className="pb-4 px-6 pt-4 text-center space-y-2">
+          <div className="pb-2 px-6 pt-4 text-center space-y-2 relative z-20">
 
             {/* Title */}
             <div className="text-gray-800 text-sm font-semibold tracking-widest">
@@ -429,13 +429,15 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             </div>
 
             {/* Name */}
-            <div className="space-y-1">
-              <h2 className="font-black tracking-wide leading-none" style={{
+            <div className="space-y-0">
+              <h2 className="font-black tracking-wide" style={{
                 background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                fontFamily: 'serif',
+                fontFamily: 'Allura, cursive',
                 fontSize: '54px',
+                lineHeight: '1.2',
+                paddingBottom: '8px',
                 filter: 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 8px rgba(0,0,0,0.4))',
               }}>
                 {firstName}
@@ -452,7 +454,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Footer Message */}
-          <div className="bg-white py-4" style={{
+          <div className="bg-white py-3" style={{
             boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
           }}>
             <p className="text-center text-gray-800 text-xl font-bold tracking-[0.3em]" style={{
