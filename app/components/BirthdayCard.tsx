@@ -229,12 +229,12 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             <div className="flex flex-col items-center gap-1 mr-8 mt-8">
               <div className="w-36 h-36 flex items-center justify-center">
                 <img 
-                  src={`/${logo}`}
+                  src={`/${logo === 'lmm-ceamc-logo.png' ? 'lmm-logo.png' : logo}`}
                   alt="Church Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              {logo === 'lmm-logo.png' && (
+              {(logo === 'lmm-logo.png' || logo === 'lmm-ceamc-logo.png') && (
                 <div className="text-white text-center" style={{
                   fontFamily: 'Cinzel, serif',
                   fontSize: '22px',
@@ -244,7 +244,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                   lineHeight: '1.2',
                   whiteSpace: 'nowrap',
                 }}>
-                  LMM LSZA
+                  {logo === 'lmm-logo.png' ? 'LMM LSZA' : 'LMM CEAMC'}
                 </div>
               )}
               <div className="text-white text-center px-2" style={{

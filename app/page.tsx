@@ -301,6 +301,7 @@ export default function Home() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
                 >
                   <option value="lmm-logo.png">LMM LSZA</option>
+                  <option value="lmm-ceamc-logo.png">LMM CEAMC</option>
                   <option value="church-ministry-logo.png">Church Ministry</option>
                 </select>
               </div>
