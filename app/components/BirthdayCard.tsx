@@ -2,8 +2,9 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { toPng } from 'html-to-image';
-import { Download } from 'lucide-react';
+import { Download, Edit3 } from 'lucide-react';
 import { toast } from 'sonner';
+import Moveable from 'react-moveable';
 
 interface BirthdayCardProps {
   name: string;
@@ -21,6 +22,19 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   const cardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  
+  // Edit mode state
+  const [editMode, setEditMode] = useState(false);
+  
+  // Refs for moveable targets
+  const photoRef = useRef<HTMLDivElement>(null);
+  const secondPhotoRef = useRef<HTMLDivElement>(null);
+  const thirdPhotoRef = useRef<HTMLDivElement>(null);
+  
+  // Transform states for each photo
+  const [photoTransform, setPhotoTransform] = useState({ x: 0, y: 0, scaleX: 1, scaleY: 1, rotate: 0 });
+  const [secondPhotoTransform, setSecondPhotoTransform] = useState({ x: 0, y: 0, scaleX: 1, scaleY: 1, rotate: 0 });
+  const [thirdPhotoTransform, setThirdPhotoTransform] = useState({ x: 0, y: 0, scaleX: 1, scaleY: 1, rotate: 0 });
 
   useEffect(() => {
     const updateScale = () => {
@@ -281,11 +295,20 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                       boxShadow: '0 4px 20px rgba(0,0,0,0.25), inset 0 2px 4px rgba(0,0,0,0.1)',
                     }}>
                       {photo ? (
-                        <img 
-                          src={photo} 
-                          alt={name}
-                          className="w-full h-full object-cover"
-                        />
+                        <div 
+                          ref={photoRef}
+                          className="w-full h-full"
+                          style={{
+                            transform: `translate(${photoTransform.x}px, ${photoTransform.y}px) rotate(${photoTransform.rotate}deg) scale(${photoTransform.scaleX}, ${photoTransform.scaleY})`,
+                          }}
+                        >
+                          <img 
+                            src={photo} 
+                            alt={name}
+                            className="w-full h-full object-cover"
+                            style={{ pointerEvents: editMode ? 'none' : 'auto' }}
+                          />
+                        </div>
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-pink-200 to-purple-200">
                           <div className="text-center text-gray-500 text-sm px-4">
@@ -315,11 +338,20 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                     }}>
                       <div className="w-full h-full rounded-full bg-linear-to-br from-yellow-600 to-yellow-700 p-1">
                         <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 border-2 border-white">
-                          <img 
-                            src={thirdPhoto} 
-                            alt="Third photo"
-                            className="w-full h-full object-cover"
-                          />
+                          <div 
+                            ref={thirdPhotoRef}
+                            className="w-full h-full"
+                            style={{
+                              transform: `translate(${thirdPhotoTransform.x}px, ${thirdPhotoTransform.y}px) rotate(${thirdPhotoTransform.rotate}deg) scale(${thirdPhotoTransform.scaleX}, ${thirdPhotoTransform.scaleY})`,
+                            }}
+                          >
+                            <img 
+                              src={thirdPhoto} 
+                              alt="Third photo"
+                              className="w-full h-full object-cover"
+                              style={{ pointerEvents: editMode ? 'none' : 'auto' }}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -336,11 +368,20 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                     }}>
                       <div className="w-full h-full rounded-full bg-linear-to-br from-yellow-600 to-yellow-700 p-1">
                         <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 border-2 border-white">
-                          <img 
-                            src={secondPhoto} 
-                            alt="Second photo"
-                            className="w-full h-full object-cover"
-                          />
+                          <div 
+                            ref={secondPhotoRef}
+                            className="w-full h-full"
+                            style={{
+                              transform: `translate(${secondPhotoTransform.x}px, ${secondPhotoTransform.y}px) rotate(${secondPhotoTransform.rotate}deg) scale(${secondPhotoTransform.scaleX}, ${secondPhotoTransform.scaleY})`,
+                            }}
+                          >
+                            <img 
+                              src={secondPhoto} 
+                              alt="Second photo"
+                              className="w-full h-full object-cover"
+                              style={{ pointerEvents: editMode ? 'none' : 'auto' }}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -425,14 +466,151 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
       </div>
       </div>
 
-      {/* Download Button */}
-      <button
-        onClick={handleDownload}
-        className="w-full bg-linear-to-r from-pink-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg"
-      >
-        <Download size={20} />
-        Download E-Card
-      </button>
+      {/* Moveable Components - Only active in edit mode */}
+      {editMode && photo && photoRef.current && (
+        <Moveable
+          target={photoRef.current}
+          draggable={true}
+          resizable={true}
+          rotatable={true}
+          keepRatio={true}
+          origin={false}
+          onDrag={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          onDragEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            setPhotoTransform(prev => ({ ...prev, x: matrix.m41, y: matrix.m42 }));
+          }}
+          onResize={({ target, width, height, drag }) => {
+            target.style.width = `${width}px`;
+            target.style.height = `${height}px`;
+            target.style.transform = drag.transform;
+          }}
+          onResizeEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            setPhotoTransform(prev => ({
+              ...prev,
+              x: matrix.m41,
+              y: matrix.m42,
+              scaleX: matrix.a,
+              scaleY: matrix.d,
+            }));
+          }}
+          onRotate={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          onRotateEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            const angle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
+            setPhotoTransform(prev => ({ ...prev, rotate: angle }));
+          }}
+        />
+      )}
+      
+      {editMode && secondPhoto && secondPhotoRef.current && (
+        <Moveable
+          target={secondPhotoRef.current}
+          draggable={true}
+          resizable={true}
+          rotatable={true}
+          keepRatio={true}
+          origin={false}
+          onDrag={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          onDragEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            setSecondPhotoTransform(prev => ({ ...prev, x: matrix.m41, y: matrix.m42 }));
+          }}
+          onResize={({ target, width, height, drag }) => {
+            target.style.width = `${width}px`;
+            target.style.height = `${height}px`;
+            target.style.transform = drag.transform;
+          }}
+          onResizeEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            setSecondPhotoTransform(prev => ({
+              ...prev,
+              x: matrix.m41,
+              y: matrix.m42,
+              scaleX: matrix.a,
+              scaleY: matrix.d,
+            }));
+          }}
+          onRotate={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          onRotateEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            const angle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
+            setSecondPhotoTransform(prev => ({ ...prev, rotate: angle }));
+          }}
+        />
+      )}
+      
+      {editMode && thirdPhoto && thirdPhotoRef.current && (
+        <Moveable
+          target={thirdPhotoRef.current}
+          draggable={true}
+          resizable={true}
+          rotatable={true}
+          keepRatio={true}
+          origin={false}
+          onDrag={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          onDragEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            setThirdPhotoTransform(prev => ({ ...prev, x: matrix.m41, y: matrix.m42 }));
+          }}
+          onResize={({ target, width, height, drag }) => {
+            target.style.width = `${width}px`;
+            target.style.height = `${height}px`;
+            target.style.transform = drag.transform;
+          }}
+          onResizeEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            setThirdPhotoTransform(prev => ({
+              ...prev,
+              x: matrix.m41,
+              y: matrix.m42,
+              scaleX: matrix.a,
+              scaleY: matrix.d,
+            }));
+          }}
+          onRotate={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          onRotateEnd={({ target }) => {
+            const matrix = new DOMMatrix(target.style.transform);
+            const angle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
+            setThirdPhotoTransform(prev => ({ ...prev, rotate: angle }));
+          }}
+        />
+      )}
+
+      {/* Action Buttons */}
+      <div className="w-full flex gap-3">
+        <button
+          onClick={() => setEditMode(!editMode)}
+          className={`flex-1 py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all shadow-lg ${
+            editMode 
+              ? 'bg-green-500 hover:bg-green-600 text-white' 
+              : 'bg-gray-700 hover:bg-gray-800 text-white'
+          }`}
+        >
+          <Edit3 size={20} />
+          {editMode ? 'Done Editing' : 'Edit Images'}
+        </button>
+        <button
+          onClick={handleDownload}
+          className="flex-1 bg-linear-to-r from-pink-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg"
+        >
+          <Download size={20} />
+          Download E-Card
+        </button>
+      </div>
     </div>
   );
 }
