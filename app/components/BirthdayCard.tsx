@@ -244,9 +244,16 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             }}
           >
         {/* Dark overlay for image backgrounds to ensure text readability */}
-        {background?.type === 'image' && (
+        {background?.type === 'image' && background.id === 'bg-5' ? (
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to bottom, rgba(124, 58, 237, 1) 0%, rgba(124, 58, 237, 1) 15%, rgba(124, 58, 237, 0.3) 55%, rgba(124, 58, 237, 0) 80%)'
+            }}
+          ></div>
+        ) : background?.type === 'image' ? (
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30 pointer-events-none"></div>
-        )}
+        ) : null}
         {/* Geometric Pattern Overlay */}
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
           backgroundImage: `
@@ -539,20 +546,27 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             {/* Name */}
             <div className="space-y-0">
               <h2 className="font-black tracking-wide" style={{
-                background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                ...(background?.id === 'bg-5' 
+                  ? { color: '#ffffff' }
+                  : {
+                    background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }
+                ),
                 fontFamily: 'Allura, cursive',
                 fontSize: '70px',
                 lineHeight: '1.2',
                 paddingBottom: '8px',
-                filter: 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 8px rgba(0,0,0,0.4))',
+                filter: background?.id === 'bg-5'
+                  ? 'drop-shadow(0 0 20px rgba(124, 58, 237, 0.8)) drop-shadow(3px 6px 12px rgba(0,0,0,0.6)) drop-shadow(6px 12px 24px rgba(0,0,0,0.4))'
+                  : 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 8px rgba(0,0,0,0.4)) drop-shadow(4px 8px 16px rgba(0,0,0,0.3))',
               }}>
                 {firstName}
               </h2>
               {lastName && (
                 <h3 className="text-2xl font-bold tracking-widest" style={{
-                  color: background?.type === 'image' ? '#f3f4f6' : '#1f2937',
+                  color: background?.type === 'image' ? '#ffffff' : '#1f2937',
                   textShadow: '0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.3)',
                   marginTop: firstNameHasDescenders ? '0' : '-12px',
                 }}>
