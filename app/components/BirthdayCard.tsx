@@ -144,6 +144,26 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
       // Ensure all fonts are loaded before capturing
       await document.fonts.ready;
       
+      // Helper function to convert image URL to data URL
+      const imageToDataUrl = async (url: string): Promise<string> => {
+        try {
+          // If it's already a data URL, return it
+          if (url.startsWith('data:')) {
+            return url;
+          }
+          const response = await fetch(url);
+          const blob = await response.blob();
+          return new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.readAsDataURL(blob);
+          });
+        } catch (error) {
+          console.error('Error converting image to data URL:', url, error);
+          return url; // Fallback to original URL
+        }
+      };
+      
       // Fetch the local Allura font and convert to data URL for embedding
       const fontResponse = await fetch('/fonts/Allura-Regular.ttf');
       const fontBlob = await fontResponse.blob();
@@ -177,8 +197,51 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         }
       `;
       
-      // Wait for fonts to be fully rendered
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Convert all images to data URLs for proper embedding
+      // This is crucial for iOS to include all images in the final PNG
+      const logoImg = cardRef.current?.querySelector('img[alt="Church Logo"]') as HTMLImageElement;
+      const photoImg = cardRef.current?.querySelector('img[alt="' + name + '"]') as HTMLImageElement;
+      const secondPhotoImg = secondPhoto ? cardRef.current?.querySelector('img[alt="Second photo"]') as HTMLImageElement : null;
+      const thirdPhotoImg = thirdPhoto ? cardRef.current?.querySelector('img[alt="Third photo"]') as HTMLImageElement : null;
+      
+      // Store original sources
+      const originalLogoSrc = logoImg?.src || '';
+      const originalPhotoSrc = photoImg?.src || '';
+      const originalSecondPhotoSrc = secondPhotoImg?.src || '';
+      const originalThirdPhotoSrc = thirdPhotoImg?.src || '';
+      
+      // Convert images to data URLs
+      if (logoImg && originalLogoSrc && !originalLogoSrc.startsWith('data:')) {
+        logoImg.src = await imageToDataUrl(originalLogoSrc);
+      }
+      if (photoImg && originalPhotoSrc && !originalPhotoSrc.startsWith('data:')) {
+        photoImg.src = await imageToDataUrl(originalPhotoSrc);
+      }
+      if (secondPhotoImg && originalSecondPhotoSrc && !originalSecondPhotoSrc.startsWith('data:')) {
+        secondPhotoImg.src = await imageToDataUrl(originalSecondPhotoSrc);
+      }
+      if (thirdPhotoImg && originalThirdPhotoSrc && !originalThirdPhotoSrc.startsWith('data:')) {
+        thirdPhotoImg.src = await imageToDataUrl(originalThirdPhotoSrc);
+      }
+      
+      // For background images, we need to handle them differently
+      // If background is an image, convert it to data URL and update the style
+      let originalBackgroundImage = '';
+      if (background?.type === 'image' && cardRef.current) {
+        const cardElement = cardRef.current;
+        const computedStyle = window.getComputedStyle(cardElement);
+        originalBackgroundImage = computedStyle.backgroundImage;
+        
+        // Extract URL from background-image
+        const urlMatch = originalBackgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
+        if (urlMatch && urlMatch[1] && !urlMatch[1].startsWith('data:')) {
+          const bgDataUrl = await imageToDataUrl(urlMatch[1]);
+          cardElement.style.backgroundImage = `url(${bgDataUrl})`;
+        }
+      }
+      
+      // Wait for images to load and fonts to be fully rendered
+      await new Promise(resolve => setTimeout(resolve, 800));
 
       // Card is already at 768px, just capture it directly
       const dataUrl = await toPng(cardRef.current, {
@@ -190,6 +253,15 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         fontEmbedCSS: fontCSS,
         skipFonts: true, // Skip external fonts, use our embedded one
       });
+      
+      // Restore original sources after capture
+      if (logoImg && originalLogoSrc) logoImg.src = originalLogoSrc;
+      if (photoImg && originalPhotoSrc) photoImg.src = originalPhotoSrc;
+      if (secondPhotoImg && originalSecondPhotoSrc) secondPhotoImg.src = originalSecondPhotoSrc;
+      if (thirdPhotoImg && originalThirdPhotoSrc) thirdPhotoImg.src = originalThirdPhotoSrc;
+      if (originalBackgroundImage && cardRef.current) {
+        cardRef.current.style.backgroundImage = originalBackgroundImage;
+      }
 
       const fileName = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;
 
@@ -397,6 +469,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                   src={`/${logo === 'lmm-ceamc-logo.png' ? 'lmm-logo.png' : logo}`}
                   alt="Church Logo" 
                   className="w-full h-full object-contain"
+                  crossOrigin="anonymous"
                 />
               </div>
               {(logo === 'lmm-logo.png' || logo === 'lmm-ceamc-logo.png') && (
@@ -479,6 +552,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                             style={{ pointerEvents: editMode ? 'none' : 'auto' }}
                             loading="eager"
                             decoding="sync"
+                            crossOrigin="anonymous"
                           />
                         </div>
                       ) : (
@@ -525,6 +599,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                               style={{ pointerEvents: editMode ? 'none' : 'auto' }}
                               loading="eager"
                               decoding="sync"
+                              crossOrigin="anonymous"
                             />
                           </div>
                         </div>
@@ -558,6 +633,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                               style={{ pointerEvents: editMode ? 'none' : 'auto' }}
                               loading="eager"
                               decoding="sync"
+                              crossOrigin="anonymous"
                             />
                           </div>
                         </div>
