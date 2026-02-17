@@ -157,10 +157,23 @@ export default function Home() {
       const reader = new FileReader();
       
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, photo: reader.result as string }));
-        toast.success('Main photo uploaded successfully!', {
-          id: loadingToast,
-        });
+        const dataUrl = reader.result as string;
+        
+        // Preload the image to ensure it's decoded before showing in preview
+        const img = new Image();
+        img.onload = () => {
+          setFormData(prev => ({ ...prev, photo: dataUrl }));
+          toast.success('Main photo uploaded successfully!', {
+            id: loadingToast,
+          });
+        };
+        img.onerror = () => {
+          toast.error('Failed to load photo', {
+            id: loadingToast,
+            description: 'Please try again with a different image'
+          });
+        };
+        img.src = dataUrl;
       };
       
       reader.onerror = () => {
@@ -197,10 +210,23 @@ export default function Home() {
       const reader = new FileReader();
       
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, secondPhoto: reader.result as string }));
-        toast.success('Second photo uploaded successfully!', {
-          id: loadingToast,
-        });
+        const dataUrl = reader.result as string;
+        
+        // Preload the image to ensure it's decoded before showing in preview
+        const img = new Image();
+        img.onload = () => {
+          setFormData(prev => ({ ...prev, secondPhoto: dataUrl }));
+          toast.success('Second photo uploaded successfully!', {
+            id: loadingToast,
+          });
+        };
+        img.onerror = () => {
+          toast.error('Failed to load photo', {
+            id: loadingToast,
+            description: 'Please try again with a different image'
+          });
+        };
+        img.src = dataUrl;
       };
       
       reader.onerror = () => {
@@ -237,10 +263,23 @@ export default function Home() {
       const reader = new FileReader();
       
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, thirdPhoto: reader.result as string }));
-        toast.success('Third photo uploaded successfully!', {
-          id: loadingToast,
-        });
+        const dataUrl = reader.result as string;
+        
+        // Preload the image to ensure it's decoded before showing in preview
+        const img = new Image();
+        img.onload = () => {
+          setFormData(prev => ({ ...prev, thirdPhoto: dataUrl }));
+          toast.success('Third photo uploaded successfully!', {
+            id: loadingToast,
+          });
+        };
+        img.onerror = () => {
+          toast.error('Failed to load photo', {
+            id: loadingToast,
+            description: 'Please try again with a different image'
+          });
+        };
+        img.src = dataUrl;
       };
       
       reader.onerror = () => {

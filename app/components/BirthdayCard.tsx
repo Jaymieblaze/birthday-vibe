@@ -416,10 +416,13 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                           }}
                         >
                           <img 
+                            key={photo}
                             src={photo} 
                             alt={name}
                             className="w-full h-full object-contain"
                             style={{ pointerEvents: editMode ? 'none' : 'auto' }}
+                            loading="eager"
+                            decoding="sync"
                           />
                         </div>
                       ) : (
@@ -459,10 +462,13 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                             }}
                           >
                             <img 
+                              key={thirdPhoto}
                               src={thirdPhoto} 
                               alt="Third photo"
                               className="w-full h-full object-contain"
                               style={{ pointerEvents: editMode ? 'none' : 'auto' }}
+                              loading="eager"
+                              decoding="sync"
                             />
                           </div>
                         </div>
@@ -489,10 +495,13 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                             }}
                           >
                             <img 
+                              key={secondPhoto}
                               src={secondPhoto} 
                               alt="Second photo"
                               className="w-full h-full object-contain"
                               style={{ pointerEvents: editMode ? 'none' : 'auto' }}
+                              loading="eager"
+                              decoding="sync"
                             />
                           </div>
                         </div>
