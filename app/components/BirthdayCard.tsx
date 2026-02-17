@@ -34,6 +34,10 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   // Edit mode state
   const [editMode, setEditMode] = useState(false);
   
+  // iOS modal state
+  const [showIOSModal, setShowIOSModal] = useState(false);
+  const [modalImageUrl, setModalImageUrl] = useState('');
+  
   // Refs for moveable targets
   const photoRef = useRef<HTMLDivElement>(null);
   const secondPhotoRef = useRef<HTMLDivElement>(null);
@@ -187,16 +191,68 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
         skipFonts: true, // Skip external fonts, use our embedded one
       });
 
-      const link = document.createElement('a');
-      link.download = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;
-      link.href = dataUrl;
-      link.click();
+      const fileName = `birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`;
 
-      // Success toast
-      toast.success('Birthday card downloaded successfully!', {
-        id: loadingToast,
-        description: `Saved as birthday-card-${name.replace(/\s+/g, '-').toLowerCase()}.png`,
-      });
+      // Detect iOS devices
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      
+      // Convert data URL to blob for iOS
+      const blob = await (await fetch(dataUrl)).blob();
+
+      // Try to use Web Share API for iOS (iOS 12.2+)
+      if (isIOS && navigator.share && navigator.canShare) {
+        const file = new File([blob], fileName, { type: 'image/png' });
+        
+        // Check if we can share this file
+        if (navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: 'Birthday Card',
+              text: `Birthday card for ${name}`,
+            });
+
+            toast.success('Share completed!', {
+              id: loadingToast,
+              description: 'Choose "Save Image" or "Save to Files" to keep the card.',
+            });
+            return;
+          } catch (shareErr: any) {
+            // User cancelled share or share failed
+            if (shareErr.name === 'AbortError') {
+              toast.info('Share cancelled', {
+                id: loadingToast,
+              });
+              return;
+            }
+            // Fall through to alternative method
+            console.log('Share API failed, trying alternative method:', shareErr);
+          }
+        }
+      }
+
+      // For iOS without share support or if share failed, show in-page modal
+      if (isIOS) {
+        setModalImageUrl(dataUrl);
+        setShowIOSModal(true);
+        
+        toast.success('Ready to save!', {
+          id: loadingToast,
+          description: 'Long press the image and tap "Save to Photos"',
+          duration: 4000,
+        });
+      } else {
+        // Standard download for non-iOS devices
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = dataUrl;
+        link.click();
+
+        toast.success('Birthday card downloaded successfully!', {
+          id: loadingToast,
+          description: `Saved as ${fileName}`,
+        });
+      }
     } catch (err) {
       console.error('Error generating image:', err);
       
@@ -745,6 +801,62 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           Download E-Card
         </button>
       </div>
+
+      {/* iOS Download Modal */}
+      {showIOSModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+          onClick={() => setShowIOSModal(false)}
+        >
+          <div 
+            className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowIOSModal(false)}
+              className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 backdrop-blur-sm transition-all"
+              aria-label="Close"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+
+            {/* Instructions */}
+            <div className="bg-gradient-to-r from-pink-500/90 to-purple-600/90 backdrop-blur-md rounded-t-2xl p-6 text-white">
+              <h2 className="text-2xl font-bold mb-4 text-center">📱 How to Save Your Card</h2>
+              <div className="space-y-3">
+                <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <p className="font-semibold">Step 1:</p>
+                  <p className="text-sm">Long press (tap and hold) on the image below</p>
+                </div>
+                <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <p className="font-semibold">Step 2:</p>
+                  <p className="text-sm">Tap "Save to Photos" or "Add to Photos"</p>
+                </div>
+                <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <p className="font-semibold">Step 3:</p>
+                  <p className="text-sm">Find it in your Photos app! 🎉</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Image */}
+            <div className="bg-gray-900 rounded-b-2xl p-4">
+              <img 
+                src={modalImageUrl} 
+                alt={`Birthday Card for ${name}`}
+                className="w-full h-auto rounded-lg shadow-2xl"
+              />
+              <p className="text-center text-white/60 text-sm mt-4">
+                👆 Long press the image above to save it
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
