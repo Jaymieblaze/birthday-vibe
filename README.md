@@ -8,10 +8,12 @@ A beautiful, customizable birthday card generator built with Next.js. Create stu
 - **Customizable Text**: Personalize with names, church names, titles, and birth dates
 - **Background Options**:
   - 5 vibrant gradient color schemes
-  - 5 image backgrounds including glitter, galaxy, and gold wall
+  - 6 image backgrounds including balloons, glitter, galaxy, and gold wall
   - Special purple gradient overlay for gold_wall background
 - **Edit Mode**: Adjust and position photos directly on the card
 - **High-Quality Export**: Download as high-resolution PNG (2304x3456px at 3x pixel ratio)
+- **iOS Support**: Native Web Share API integration for seamless iPhone/iPad downloads
+- **Smart Image Embedding**: Automatic conversion of all assets to data URLs for reliable cross-platform downloads
 - **Responsive Design**: Scales beautifully on all screen sizes
 
 ## Getting Started
@@ -49,12 +51,30 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 5. **Edit Photos** (optional): Click "Edit Images" to reposition, rotate, or resize photos
 6. **Download**: Click "Download E-Card" to save your creation
 
+## iOS & Mobile Support
+
+The application provides optimized download experiences across all devices:
+
+### iOS Devices (iPhone/iPad)
+- **Web Share API**: On iOS 12.2+, uses native share functionality
+- **Long-press Save**: Fallback option displays the image for manual save
+- **Image Embedding**: All assets (logos, backgrounds, photos) are automatically converted to data URLs to ensure they appear correctly in the downloaded file
+
+### Desktop Browsers
+- Direct PNG download with automatic filename generation
+
+### Technical Implementation
+- All external images are embedded as base64 data URLs before export
+- CORS-enabled image loading with `crossOrigin="anonymous"` attribute
+- Fonts (Allura, Remixicon) are embedded in the exported image
+- 800ms rendering delay ensures all assets are fully loaded before capture
+
 ## Background Images
 
 The application includes several background options:
 
 - **Gradients**: Purple-Pink, Blue-Teal, Rose-Gold, Coral-Peach, Lavender-Mint
-- **Images**: Glitter, Glitter 2, Galaxy, Gold Wall, and more
+- **Images**: Balloons, Glitter, Glitter 2, Galaxy, Gold Wall, Sparks
 
 The gold_wall background features a special purple gradient overlay that:
 - Maintains solid purple coverage for the top 25%
@@ -69,6 +89,7 @@ The gold_wall background features a special purple gradient overlay that:
 - **Font**: Allura (cursive), Cinzel, Montserrat
 - **Icons**: Remix Icon, Lucide React
 - **Photo Manipulation**: react-moveable
+- **Notifications**: Sonner (toast notifications)
 
 ## Project Structure
 
@@ -106,6 +127,23 @@ birthday-vibe/
 ### Adding Color Schemes
 
 Update the `colorSchemes` object in `BirthdayCard.tsx` with your custom gradient and decoration colors.
+
+## Troubleshooting
+
+### Images not appearing in downloaded card
+- Ensure all images are hosted on the same domain or have CORS enabled
+- Check browser console for CORS or network errors
+- Try using a different background or re-uploading photos
+
+### iOS Share not working
+- Ensure you're using iOS 12.2 or later
+- If Share API fails, the app will automatically fall back to the long-press save method
+- Make sure Safari has permission to access photos (Settings > Safari > Photos)
+
+### Low quality export
+- The app exports at 3x pixel ratio (2304x3456px) by default
+- Ensure source photos are high resolution for best results
+- Wait for the "Preparing your birthday card..." loading message to complete
 
 ## Learn More
 
