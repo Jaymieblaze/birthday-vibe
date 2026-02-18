@@ -696,9 +696,9 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                   }
                 ),
                 fontFamily: 'Allura, cursive',
-                fontSize: '70px',
+                fontSize: '75px',
                 lineHeight: '1.2',
-                paddingBottom: '8px',
+                paddingBottom: '4px',
                 filter: background?.id === 'bg-5'
                   ? 'drop-shadow(0 0 20px rgba(124, 58, 237, 0.8)) drop-shadow(3px 6px 12px rgba(0,0,0,0.6)) drop-shadow(6px 12px 24px rgba(0,0,0,0.4))'
                   : 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 8px rgba(0,0,0,0.4)) drop-shadow(4px 8px 16px rgba(0,0,0,0.3))',
