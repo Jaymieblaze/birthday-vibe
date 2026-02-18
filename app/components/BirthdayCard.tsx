@@ -857,24 +857,26 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
       )}
 
       {/* Action Buttons */}
-      <div className="w-full flex gap-3">
+      <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-3">
         <button
           onClick={() => setEditMode(!editMode)}
-          className={`flex-1 py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all shadow-lg ${
+          className={`flex-1 py-3 px-4 sm:px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all shadow-lg text-sm sm:text-base min-h-[44px] ${
             editMode 
               ? 'bg-green-500 hover:bg-green-600 text-white' 
               : 'bg-gray-700 hover:bg-gray-800 text-white'
           }`}
         >
-          <Edit3 size={20} />
-          {editMode ? 'Done Editing' : 'Edit Images'}
+          <Edit3 size={18} className="sm:w-5 sm:h-5" />
+          <span className="hidden sm:inline">{editMode ? 'Done Editing' : 'Edit Images'}</span>
+          <span className="sm:hidden">{editMode ? 'Done' : 'Edit'}</span>
         </button>
         <button
           onClick={handleDownload}
-          className="flex-1 bg-linear-to-r from-pink-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg"
+          className="flex-1 bg-linear-to-r from-pink-500 to-purple-600 text-white py-3 px-4 sm:px-6 rounded-lg font-semibold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg text-sm sm:text-base min-h-[44px]"
         >
-          <Download size={20} />
-          Download E-Card
+          <Download size={18} className="sm:w-5 sm:h-5" />
+          <span className="hidden sm:inline">Download E-Card</span>
+          <span className="sm:hidden">Download</span>
         </button>
       </div>
 
@@ -901,32 +903,32 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
             </button>
 
             {/* Instructions */}
-            <div className="bg-gradient-to-r from-pink-500/90 to-purple-600/90 backdrop-blur-md rounded-t-2xl p-6 text-white">
-              <h2 className="text-2xl font-bold mb-4 text-center">📱 How to Save Your Card</h2>
-              <div className="space-y-3">
-                <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <p className="font-semibold">Step 1:</p>
-                  <p className="text-sm">Long press (tap and hold) on the image below</p>
+            <div className="bg-gradient-to-r from-pink-500/90 to-purple-600/90 backdrop-blur-md rounded-t-2xl p-4 sm:p-6 text-white">
+              <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center">📱 How to Save Your Card</h2>
+              <div className="space-y-2 sm:space-y-3">
+                <div className="bg-white/10 rounded-lg p-2.5 sm:p-3 backdrop-blur-sm">
+                  <p className="font-semibold text-sm sm:text-base">Step 1:</p>
+                  <p className="text-xs sm:text-sm">Long press (tap and hold) on the image below</p>
                 </div>
-                <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <p className="font-semibold">Step 2:</p>
-                  <p className="text-sm">Tap "Save to Photos" or "Add to Photos"</p>
+                <div className="bg-white/10 rounded-lg p-2.5 sm:p-3 backdrop-blur-sm">
+                  <p className="font-semibold text-sm sm:text-base">Step 2:</p>
+                  <p className="text-xs sm:text-sm">Tap "Save to Photos" or "Add to Photos"</p>
                 </div>
-                <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <p className="font-semibold">Step 3:</p>
-                  <p className="text-sm">Find it in your Photos app! 🎉</p>
+                <div className="bg-white/10 rounded-lg p-2.5 sm:p-3 backdrop-blur-sm">
+                  <p className="font-semibold text-sm sm:text-base">Step 3:</p>
+                  <p className="text-xs sm:text-sm">Find it in your Photos app! 🎉</p>
                 </div>
               </div>
             </div>
 
             {/* Image */}
-            <div className="bg-gray-900 rounded-b-2xl p-4">
+            <div className="bg-gray-900 rounded-b-2xl p-3 sm:p-4">
               <img 
                 src={modalImageUrl} 
                 alt={`Birthday Card for ${name}`}
                 className="w-full h-auto rounded-lg shadow-2xl"
               />
-              <p className="text-center text-white/60 text-sm mt-4">
+              <p className="text-center text-white/60 text-xs sm:text-sm mt-3 sm:mt-4">
                 👆 Long press the image above to save it
               </p>
             </div>

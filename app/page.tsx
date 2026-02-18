@@ -294,21 +294,21 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-pink-50 via-purple-50 to-blue-50 py-4 sm:py-8 px-4">
+    <div className="min-h-screen bg-linear-to-br from-pink-50 via-purple-50 to-blue-50 py-3 sm:py-6 md:py-8 px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2 text-gray-800">
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-2 text-gray-800">
           Birthday E-Card Generator
         </h1>
-        <p className="text-sm sm:text-base text-center text-gray-600 mb-6 sm:mb-8">Create beautiful personalized birthday cards</p>
+        <p className="text-xs sm:text-sm md:text-base text-center text-gray-600 mb-4 sm:mb-6 md:mb-8">Create beautiful personalized birthday cards</p>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           {/* Form Section */}
-          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-gray-800">Card Details</h2>
+          <div className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6 text-gray-800">Card Details</h2>
             
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Full Name *
                 </label>
                 <input
@@ -316,22 +316,22 @@ export default function Home() {
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="First Name and Last Name"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-yellow-700 placeholder:text-gray-600 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-yellow-700 placeholder:text-gray-600 font-medium text-sm sm:text-base"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Birth Date *
                 </label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   <select
                     value={formData.birthDate ? formData.birthDate.split('-')[2] : ''}
                     onChange={(e) => {
                       const month = formData.birthDate ? formData.birthDate.split('-')[1] : '01';
                       setFormData(prev => ({ ...prev, birthDate: `2000-${month}-${e.target.value.padStart(2, '0')}` }));
                     }}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                    className="w-full px-2 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium text-sm sm:text-base"
                   >
                     <option value="">Day</option>
                     {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
@@ -344,7 +344,7 @@ export default function Home() {
                       const day = formData.birthDate ? formData.birthDate.split('-')[2] : '01';
                       setFormData(prev => ({ ...prev, birthDate: `2000-${e.target.value}-${day}` }));
                     }}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                    className="w-full px-2 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium text-sm sm:text-base"
                   >
                     <option value="">Month</option>
                     <option value="01">January</option>
@@ -364,7 +364,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Church Name *
                 </label>
                 <input
@@ -372,18 +372,18 @@ export default function Home() {
                   value={formData.church}
                   onChange={(e) => setFormData(prev => ({ ...prev, church: e.target.value }))}
                   placeholder="Enter church name"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 placeholder:text-gray-600 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 placeholder:text-gray-600 font-medium text-sm sm:text-base"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Title
                 </label>
                 <select
                   value={formData.title}
                   onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium text-sm sm:text-base"
                 >
                   <option value="ESTEEMED SISTER">Esteemed Sister</option>
                   <option value="ESTEEMED BROTHER">Esteemed Brother</option>
@@ -394,13 +394,13 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Background
                 </label>
                 <select
                   value={formData.backgroundId}
                   onChange={(e) => setFormData(prev => ({ ...prev, backgroundId: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium text-sm sm:text-base"
                 >
                   {BACKGROUNDS.map(bg => (
                     <option key={bg.id} value={bg.id}>
@@ -411,13 +411,13 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Logo
                 </label>
                 <select
                   value={formData.logo}
                   onChange={(e) => setFormData(prev => ({ ...prev, logo: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-gray-900 font-medium text-sm sm:text-base"
                 >
                   <option value="lmm-logo.png">LMM LSZA</option>
                   <option value="lmm-ceamc-logo.png">LMM CEAMC</option>
@@ -426,7 +426,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Upload Main Photo *
                 </label>
                 <input
@@ -434,12 +434,12 @@ export default function Home() {
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100"
+                  className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none file:mr-2 sm:file:mr-4 file:py-1.5 sm:file:py-2 file:px-3 sm:file:px-4 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Upload Second Photo (Optional)
                 </label>
                 <input
@@ -447,12 +447,12 @@ export default function Home() {
                   type="file"
                   accept="image/*"
                   onChange={handleSecondImageUpload}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+                  className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none file:mr-2 sm:file:mr-4 file:py-1.5 sm:file:py-2 file:px-3 sm:file:px-4 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Upload Third Photo (Optional)
                 </label>
                 <input
@@ -460,18 +460,18 @@ export default function Home() {
                   type="file"
                   accept="image/*"
                   onChange={handleThirdImageUpload}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none file:mr-2 sm:file:mr-4 file:py-1.5 sm:file:py-2 file:px-3 sm:file:px-4 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 />
               </div>
 
-              <p className="text-sm text-gray-500 mt-4">
+              <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">
                 * Required fields
               </p>
 
               {/* Clear Data Button */}
               <button
                 onClick={() => setShowClearDialog(true)}
-                className="w-full mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors border border-gray-300"
+                className="w-full mt-3 sm:mt-4 bg-gray-100 text-gray-700 py-2.5 sm:py-2 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors border border-gray-300 text-sm sm:text-base min-h-[44px]"
               >
                 Clear All Data
               </button>
@@ -479,8 +479,8 @@ export default function Home() {
           </div>
 
           {/* Card Preview Section */}
-          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-gray-800">Preview</h2>
+          <div className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6 text-gray-800">Preview</h2>
             <BirthdayCard 
               name={formData.name}
               birthDate={formData.birthDate}
@@ -499,18 +499,18 @@ export default function Home() {
 
       {/* Clear Data Dialog */}
       {showClearDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-white/30">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all">
-            <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 backdrop-blur-md bg-white/30">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 transform transition-all">
+            <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
               Clear All Data?
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
               Are you sure you want to clear all form data? This action cannot be undone.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <button
                 onClick={() => setShowClearDialog(false)}
-                className="flex-1 px-4 py-3 rounded-lg font-semibold border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-all"
+                className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-semibold border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-all text-sm sm:text-base min-h-[44px]"
               >
                 Cancel
               </button>
@@ -539,7 +539,7 @@ export default function Home() {
                     description: 'All fields have been reset',
                   });
                 }}
-                className="flex-1 px-4 py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg"
+                className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 transition-all shadow-lg text-sm sm:text-base min-h-[44px]"
               >
                 Clear Data
               </button>
