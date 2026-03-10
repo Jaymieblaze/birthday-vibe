@@ -464,7 +464,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
 
             {/* Church Logo and Name */}
             <div className="flex flex-col items-center gap-1 mr-8 mt-8">
-              <div className="w-36 h-36 flex items-center justify-center">
+              <div className={`${logo === 'church-ministry-logo.png' ? 'w-36 h-36' : 'w-28 h-28'} flex items-center justify-center`}>
                 <img 
                   src={`/${logo === 'lmm-ceamc-logo.png' ? 'lmm-logo.png' : logo}`}
                   alt="Church Logo" 
