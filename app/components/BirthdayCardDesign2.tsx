@@ -255,12 +255,7 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
 
           {/* Happy Birthday - Top Left */}
           <div className="absolute top-8 left-6 z-20">
-            <div className="relative inline-block px-3 py-1.5 rounded-lg" style={{
-              background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.3) 100%)',
-              backdropFilter: 'blur(10px)',
-              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1)',
-              border: '1px solid rgba(255, 215, 0, 0.3)'
-            }}>
+            <div className="relative inline-block px-3 py-1.5">
               {/* Randomly positioned stars */}
               <i className="ri-star-line absolute text-yellow-400 text-3xl" style={{ top: '-15px', left: '10px', transform: 'rotate(-15deg)' }}></i>
               <i className="ri-star-line absolute text-yellow-300 text-lg" style={{ top: '-6px', right: '15px', transform: 'rotate(25deg)' }}></i>
@@ -271,13 +266,10 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
               <i className="ri-star-fill absolute text-yellow-300 text-lg" style={{ top: '20%', left: '-10px', transform: 'rotate(30deg)' }}></i>
               <i className="ri-star-line absolute text-yellow-400 text-base" style={{ bottom: '20%', right: '-8px', transform: 'rotate(-25deg)' }}></i>
               
-              <h2 className="text-5xl font-extrabold leading-tight" 
+              <h2 className="text-5xl font-extrabold leading-tight text-white" 
                   style={{ 
                     fontFamily: "'Great Vibes', cursive",
-                    background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))'
+                    textShadow: '0 1px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)'
                   }}>
                 Happy Birthday
               </h2>
