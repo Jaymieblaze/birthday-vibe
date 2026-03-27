@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { toPng } from 'html-to-image';
 import { Download, Edit3 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -121,6 +121,22 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
     return `${ordinal(day)} ${month}`;
   };
 
+  const splitName = (fullName: string) => {
+    const parts = fullName.trim().split(' ');
+    if (parts.length === 1) return { firstName: parts[0], lastName: '' };
+    const lastName = parts[parts.length - 1];
+    const firstName = parts.slice(0, -1).join(' ');
+    return { firstName, lastName };
+  };
+
+  // Check if the first name has descenders (letters that extend below baseline)
+  const hasDescenders = (text: string) => {
+    return /[gjpqy]/i.test(text);
+  };
+
+  const { firstName, lastName } = splitName(name);
+  const firstNameHasDescenders = hasDescenders(firstName);
+
   const handleDownload = async () => {
     if (!cardRef.current) return;
 
@@ -201,10 +217,109 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
             <i className="ri-star-line absolute text-yellow-300 text-4xl blur-[1px]" style={{ top: '10%', right: '30%', transform: 'rotate(28deg)' }}></i>
           </div>
 
-          {/* Design 2: Square Profile Image Layout with Photos on Left */}
-          <div className="relative w-full h-full flex items-center justify-between p-8 gap-6">
-            {/* Left Side - Photos Section */}
-            <div className="relative shrink-0" style={{ width: '45%' }}>
+          {/* Church Logo and Name - Top Right */}
+          <div className="absolute top-6 right-6 z-20 flex flex-col items-center gap-1">
+            <div className={`${logo === 'church-ministry-logo.png' ? 'w-22 h-22' : 'w-17 h-17'} flex items-center justify-center`}>
+              <img 
+                src={`/${logo === 'lmm-ceamc-logo.png' ? 'lmm-logo.png' : logo}`}
+                alt="Church Logo" 
+                className="w-full h-full object-contain drop-shadow-lg"
+                crossOrigin="anonymous"
+              />
+            </div>
+            {(logo === 'lmm-logo.png' || logo === 'lmm-ceamc-logo.png') && (
+              <div className="text-white text-center" style={{
+                fontFamily: 'Cinzel, serif',
+                fontSize: '14px',
+                fontWeight: 700,
+                letterSpacing: '0.1em',
+                textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)',
+                lineHeight: '1.2',
+                whiteSpace: 'nowrap'
+              }}>
+                {logo === 'lmm-logo.png' ? 'LMM LSZA' : 'LMM CEAMC'}
+              </div>
+            )}
+            <div className="text-white text-center px-2 uppercase wrap-break-word" style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: '12px',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              textShadow: '0 2px 6px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3)',
+              lineHeight: '1.3',
+              maxWidth: '180px'
+            }}>
+              {church}
+            </div>
+          </div>
+
+          {/* Happy Birthday - Top Left */}
+          <div className="absolute top-12 left-6 z-20">
+            <h2 className="text-5xl font-extrabold leading-tight" 
+                style={{ 
+                  fontFamily: "'Great Vibes', cursive",
+                  background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))'
+                }}>
+              Happy Birthday
+            </h2>
+          </div>
+
+          {/* Design 2: Square Profile Image Layout with Photos on Right */}
+          <div className="relative w-full h-full flex items-center justify-between px-8 pt-8 pb-16 gap-6">
+            {/* Left Side - Text Content */}
+            <div className="flex-1 flex flex-col items-center justify-center text-center space-y-3" style={{ minWidth: '30%' }}>
+
+              {/* Name Card - Design 1 Style */}
+              <div className="w-full">
+                <p className="text-xs font-semibold text-white mb-1" style={{
+                  textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)'
+                }}>{title}</p>
+                
+                {/* First Name - Large Script */}
+                <h2 className="font-black tracking-wide" style={{
+                  ...(background?.id === 'bg-5' 
+                    ? { color: '#ffffff' }
+                    : {
+                      background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }
+                  ),
+                  fontFamily: 'Allura, cursive',
+                  fontSize: '55px',
+                  lineHeight: '1.2',
+                  paddingBottom: '4px',
+                  filter: background?.id === 'bg-5'
+                    ? 'drop-shadow(0 0 15px rgba(124, 58, 237, 0.8)) drop-shadow(2px 4px 10px rgba(0,0,0,0.6))'
+                    : 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))'
+                }}>
+                  {firstName || name || 'Name'}
+                </h2>
+                
+                {/* Last Name - Small Caps */}
+                {lastName && (
+                  <h3 className="text-xl font-bold tracking-widest text-white" style={{
+                    textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)',
+                    marginTop: firstNameHasDescenders ? '0' : '-8px',
+                  }}>
+                    {lastName.toUpperCase()}
+                  </h3>
+                )}
+                
+                {/* Date */}
+                <div className="text-lg font-bold text-white mt-2" style={{
+                  textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)',
+                }}>
+                  {formatDate(birthDate) || 'Birth Date'}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Photos Section */}
+            <div className="relative shrink-0" style={{ width: '70%', top   : '9%' }}>
               {/* Main Photo Frame with Gold Border */}
               <div className="relative w-full aspect-square">
                 {/* Outer gold border with glow effect */}
@@ -259,7 +374,7 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
 
                 {/* Third Photo - Top Left Overlap */}
                 {thirdPhoto && (
-                  <div className="absolute top-12 w-[30%] aspect-square z-10" style={{ left: '-30px' }}>
+                  <div className="absolute top-8 w-[28%] aspect-square z-10" style={{ left: '-15px' }}>
                     <div className="w-full h-full rounded-full" style={{
                       background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
                       padding: '3px',
@@ -291,7 +406,7 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
 
                 {/* Second Photo - Bottom Left Overlap */}
                 {secondPhoto && (
-                  <div className="absolute bottom-0 w-[40%] aspect-square z-10" style={{ left: '-20px' }}>
+                  <div className="absolute bottom-0 w-[38%] aspect-square z-10" style={{ left: '-10px' }}>
                     <div className="w-full h-full rounded-full" style={{
                       background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
                       padding: '3px',
@@ -322,43 +437,17 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
                 )}
               </div>
             </div>
+          </div>
 
-            {/* Right Side - Text Content */}
-            <div className="flex-1 flex flex-col items-center justify-center text-center space-y-3">
-              {/* Logo at top */}
-              {logo && (
-                <div className="mb-2">
-                  <img 
-                    src={`/${logo}`} 
-                    alt="Logo" 
-                    className="h-12 w-auto object-contain drop-shadow-lg mx-auto"
-                  />
-                </div>
-              )}
-
-              {/* Happy Birthday */}
-              <h2 className="text-4xl font-extrabold text-white drop-shadow-lg leading-tight" 
-                  style={{ fontFamily: "'Playfair Display', serif" }}>
-                HAPPY<br/>BIRTHDAY
-              </h2>
-              
-              {/* Name Card */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-xl w-full">
-                <p className="text-xs font-semibold text-gray-600 mb-1">{title}</p>
-                <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-purple-600 mb-2 leading-tight"
-                    style={{ fontFamily: "'Great Vibes', cursive" }}>
-                  {name || 'Name'}
-                </h1>
-                <div className="text-xl font-bold text-gray-800 mb-1">
-                  {formatDate(birthDate) || 'Birth Date'}
-                </div>
-                {church && (
-                  <p className="text-xs text-gray-600 mt-2 italic leading-tight">
-                    {church}
-                  </p>
-                )}
-              </div>
-            </div>
+          {/* Footer Message */}
+          <div className="absolute bottom-0 left-0 right-0 bg-white py-2" style={{
+            boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
+          }}>
+            <p className="text-center text-gray-800 text-base font-bold tracking-[0.3em]" style={{
+              textShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            }}>
+              WE LOVE YOU DEARLY!
+            </p>
           </div>
         </div>
 
@@ -368,7 +457,7 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
           className="w-full mt-4 bg-linear-to-r from-purple-500 to-pink-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-700 transition-all flex items-center justify-center gap-2 shadow-lg"
         >
           <Download size={20} />
-          Download Card (Square)
+          Download E-Card (Square)
         </button>
       </div>
 
