@@ -181,31 +181,31 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
       <div ref={containerRef} className="w-full">
         <div 
           ref={cardRef} 
-          className="relative w-full aspect-[3/4] mx-auto overflow-hidden rounded-lg shadow-xl"
+          className="relative w-full aspect-square mx-auto overflow-hidden rounded-lg shadow-xl"
           style={{
-            maxWidth: '768px',
+            maxWidth: '600px',
             ...getBackgroundStyle(),
           }}
         >
-          {/* Design 2: Horizontal Layout */}
-          <div className="relative w-full h-full flex flex-col items-center justify-center p-8">
+          {/* Design 2: Square Profile Image Layout */}
+          <div className="relative w-full h-full flex flex-col items-center justify-center p-6">
             {/* Logo at top */}
             {logo && (
-              <div className="absolute top-6 left-1/2 -translate-x-1/2">
+              <div className="absolute top-4 left-1/2 -translate-x-1/2">
                 <img 
                   src={`/${logo}`} 
                   alt="Logo" 
-                  className="h-16 w-auto object-contain drop-shadow-lg"
+                  className="h-12 w-auto object-contain drop-shadow-lg"
                 />
               </div>
             )}
 
-            {/* Main Content - Horizontal Layout */}
-            <div className="flex items-center justify-center gap-8 w-full max-w-3xl">
+            {/* Main Content - Centered Vertical Layout */}
+            <div className="flex flex-col items-center justify-center gap-4 w-full">
               {/* Photo Section */}
               {photo && (
-                <div className="flex-shrink-0">
-                  <div className="w-64 h-64 rounded-full overflow-hidden border-8 border-white shadow-2xl">
+                <div className="shrink-0">
+                  <div className="w-48 h-48 rounded-full overflow-hidden border-6 border-white shadow-2xl">
                     <img 
                       src={photo} 
                       alt={name}
@@ -216,63 +216,63 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
               )}
 
               {/* Text Section */}
-              <div className="flex-1 text-center">
-                <h2 className="text-5xl font-extrabold text-white drop-shadow-lg mb-4" 
+              <div className="text-center w-full px-4">
+                <h2 className="text-3xl font-extrabold text-white drop-shadow-lg mb-3" 
                     style={{ fontFamily: "'Playfair Display', serif" }}>
                   HAPPY BIRTHDAY
                 </h2>
                 
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                  <p className="text-sm font-semibold text-gray-600 mb-2">{title}</p>
-                  <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-3"
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-xl mx-auto max-w-sm">
+                  <p className="text-xs font-semibold text-gray-600 mb-1">{title}</p>
+                  <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-purple-600 mb-2"
                       style={{ fontFamily: "'Great Vibes', cursive" }}>
                     {name || 'Name'}
                   </h1>
-                  <div className="text-2xl font-bold text-gray-800 mb-2">
+                  <div className="text-xl font-bold text-gray-800 mb-1">
                     {formatDate(birthDate) || 'Birth Date'}
                   </div>
                   {church && (
-                    <p className="text-sm text-gray-600 mt-3 italic">
+                    <p className="text-xs text-gray-600 mt-2 italic">
                       {church}
                     </p>
                   )}
                 </div>
               </div>
-            </div>
 
-            {/* Additional Photos at Bottom */}
-            {(secondPhoto || thirdPhoto) && (
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-                {secondPhoto && (
-                  <div className="w-24 h-24 rounded-lg overflow-hidden border-4 border-white shadow-xl">
-                    <img 
-                      src={secondPhoto} 
-                      alt="Second"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-                {thirdPhoto && (
-                  <div className="w-24 h-24 rounded-lg overflow-hidden border-4 border-white shadow-xl">
-                    <img 
-                      src={thirdPhoto} 
-                      alt="Third"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-              </div>
-            )}
+              {/* Additional Photos at Bottom */}
+              {(secondPhoto || thirdPhoto) && (
+                <div className="flex gap-3 mt-2">
+                  {secondPhoto && (
+                    <div className="w-16 h-16 rounded-lg overflow-hidden border-3 border-white shadow-xl">
+                      <img 
+                        src={secondPhoto} 
+                        alt="Second"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                  {thirdPhoto && (
+                    <div className="w-16 h-16 rounded-lg overflow-hidden border-3 border-white shadow-xl">
+                      <img 
+                        src={thirdPhoto} 
+                        alt="Third"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Download Button */}
         <button
           onClick={handleDownload}
-          className="w-full mt-4 bg-gradient-to-r from-purple-500 to-pink-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-700 transition-all flex items-center justify-center gap-2 shadow-lg"
+          className="w-full mt-4 bg-linear-to-r from-purple-500 to-pink-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-700 transition-all flex items-center justify-center gap-2 shadow-lg"
         >
           <Download size={20} />
-          Download Card
+          Download Card (Square)
         </button>
       </div>
 
