@@ -254,23 +254,40 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
           </div>
 
           {/* Happy Birthday - Top Left */}
-          <div className="absolute top-12 left-6 z-20">
-            <h2 className="text-5xl font-extrabold leading-tight" 
-                style={{ 
-                  fontFamily: "'Great Vibes', cursive",
-                  background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))'
-                }}>
-              Happy Birthday
-            </h2>
+          <div className="absolute top-8 left-6 z-20">
+            <div className="relative inline-block px-3 py-1.5 rounded-lg" style={{
+              background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.3) 100%)',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1)',
+              border: '1px solid rgba(255, 215, 0, 0.3)'
+            }}>
+              {/* Randomly positioned stars */}
+              <i className="ri-star-line absolute text-yellow-400 text-3xl" style={{ top: '-15px', left: '10px', transform: 'rotate(-15deg)' }}></i>
+              <i className="ri-star-line absolute text-yellow-300 text-lg" style={{ top: '-6px', right: '15px', transform: 'rotate(25deg)' }}></i>
+              <i className="ri-star-fill absolute text-yellow-400 text-base" style={{ bottom: '-6px', left: '20px', transform: 'rotate(40deg)' }}></i>
+              <i className="ri-star-line absolute text-yellow-300 text-2xl" style={{ bottom: '-10px', right: '10px', transform: 'rotate(-20deg)' }}></i>
+              <i className="ri-star-fill absolute text-yellow-300 text-sm" style={{ top: '50%', left: '-8px', transform: 'translateY(-50%) rotate(15deg)' }}></i>
+              <i className="ri-star-line absolute text-yellow-400 text-lg" style={{ top: '50%', right: '-8px', transform: 'translateY(-50%) rotate(-35deg)' }}></i>
+              <i className="ri-star-fill absolute text-yellow-300 text-lg" style={{ top: '20%', left: '-10px', transform: 'rotate(30deg)' }}></i>
+              <i className="ri-star-line absolute text-yellow-400 text-base" style={{ bottom: '20%', right: '-8px', transform: 'rotate(-25deg)' }}></i>
+              
+              <h2 className="text-5xl font-extrabold leading-tight" 
+                  style={{ 
+                    fontFamily: "'Great Vibes', cursive",
+                    background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))'
+                  }}>
+                Happy Birthday
+              </h2>
+            </div>
           </div>
 
           {/* Design 2: Square Profile Image Layout with Photos on Right */}
           <div className="relative w-full h-full flex items-center justify-between px-8 pt-8 pb-16 gap-6">
             {/* Left Side - Text Content */}
-            <div className="flex-1 flex flex-col items-center justify-center text-center space-y-3" style={{ minWidth: '30%' }}>
+            <div className="flex-1 flex flex-col items-center justify-center text-center space-y-3" style={{ minWidth: '30%', marginTop: '20%' }}>
 
               {/* Name Card - Design 1 Style */}
               <div className="w-full">
@@ -283,18 +300,20 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
                   ...(background?.id === 'bg-5' 
                     ? { color: '#ffffff' }
                     : {
-                      background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 100%)',
+                      background: 'linear-gradient(180deg, #FFF4CC 0%, #FFD700 25%, #FFA500 50%, #FF8C00 75%, #FFD700 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
                     }
                   ),
                   fontFamily: 'Allura, cursive',
                   fontSize: '55px',
                   lineHeight: '1.2',
                   paddingBottom: '4px',
-                  filter: background?.id === 'bg-5'
-                    ? 'drop-shadow(0 0 15px rgba(124, 58, 237, 0.8)) drop-shadow(2px 4px 10px rgba(0,0,0,0.6))'
-                    : 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 6px rgba(0,0,0,0.4))'
+                  textShadow: background?.id === 'bg-5'
+                    ? '1px 1px 0 #7c3aed, 2px 2px 0 #6d28d9, 3px 3px 0 #5b21b6, 4px 4px 0 #4c1d95, 5px 5px 10px rgba(0,0,0,0.5), 0 0 20px rgba(124, 58, 237, 0.5)'
+                    : '1px 1px 0 #FFA500, 2px 2px 0 #FF8C00, 3px 3px 0 #FF7F00, 4px 4px 0 #FF6B00, 5px 5px 0 #FF5500, 6px 6px 10px rgba(0,0,0,0.4), 0 0 20px rgba(255, 215, 0, 0.4)',
+                  filter: background?.id === 'bg-5' ? 'none' : 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))'
                 }}>
                   {firstName || name || 'Name'}
                 </h2>
@@ -309,11 +328,24 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
                   </h3>
                 )}
                 
-                {/* Date */}
-                <div className="text-lg font-bold text-white mt-2" style={{
-                  textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)',
+                {/* Date with Background and Stars */}
+                <div className="relative inline-block mt-8 px-6 py-3 rounded-lg" style={{
+                  background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.3) 100%)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1)',
+                  border: '1px solid rgba(255, 215, 0, 0.3)'
                 }}>
-                  {formatDate(birthDate) || 'Birth Date'}
+                  {/* Corner Stars */}
+                  <i className="ri-star-line absolute text-yellow-400 text-2xl" style={{ top: '-15px', left: '-10px' }}></i>
+                  <i className="ri-star-fill absolute text-yellow-400 text-xl" style={{ top: '-10px', right: '-8px' }}></i>
+                  <i className="ri-star-fill absolute text-yellow-300 text-lg" style={{ bottom: '-10px', left: '-4px' }}></i>
+                  <i className="ri-star-line absolute text-yellow-400 text-2xl" style={{ bottom: '-14px', right: '-4px' }}></i>
+                  
+                  <div className="text-lg font-bold text-white" style={{
+                    textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)',
+                  }}>
+                    {formatDate(birthDate) || 'Birth Date'}
+                  </div>
                 </div>
               </div>
             </div>
