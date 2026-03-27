@@ -284,7 +284,8 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
               {/* Name Card - Design 1 Style */}
               <div className="w-full">
                 <p className="text-xs font-semibold text-white mb-1" style={{
-                  textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)'
+                  textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)',
+                  textAlign: 'center'
                 }}>{title}</p>
                 
                 {/* First Name - Large Script */}
@@ -299,13 +300,15 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
                     }
                   ),
                   fontFamily: 'Allura, cursive',
-                  fontSize: '55px',
+                  fontSize: '45px',
                   lineHeight: '1.2',
-                  paddingBottom: '4px',
+                  paddingBottom: '8px',
                   textShadow: background?.id === 'bg-5'
                     ? '1px 1px 0 #7c3aed, 2px 2px 0 #6d28d9, 3px 3px 0 #5b21b6, 4px 4px 0 #4c1d95, 5px 5px 10px rgba(0,0,0,0.5), 0 0 20px rgba(124, 58, 237, 0.5)'
                     : '1px 1px 0 #FFA500, 2px 2px 0 #FF8C00, 3px 3px 0 #FF7F00, 4px 4px 0 #FF6B00, 5px 5px 0 #FF5500, 6px 6px 10px rgba(0,0,0,0.4), 0 0 20px rgba(255, 215, 0, 0.4)',
-                  filter: background?.id === 'bg-5' ? 'none' : 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))'
+                  filter: background?.id === 'bg-5' ? 'none' : 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))',
+                  textAlign: 'center',
+                  marginLeft: '-12px'
                 }}>
                   {firstName || name || 'Name'}
                 </h2>
@@ -315,6 +318,7 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
                   <h3 className="text-xl font-bold tracking-widest text-white" style={{
                     textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)',
                     marginTop: firstNameHasDescenders ? '0' : '-8px',
+                    textAlign: 'center'
                   }}>
                     {lastName.toUpperCase()}
                   </h3>
@@ -335,6 +339,7 @@ export default function BirthdayCardDesign2({ name, birthDate, church, title, ph
                   
                   <div className="text-lg font-bold text-white" style={{
                     textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3)',
+                    textAlign: 'center'
                   }}>
                     {formatDate(birthDate) || 'Birth Date'}
                   </div>
