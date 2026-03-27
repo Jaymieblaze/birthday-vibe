@@ -18,36 +18,6 @@ interface Background {
 
 const BACKGROUNDS: Background[] = [
   {
-    id: 'gradient-purple-pink',
-    name: 'Purple & Pink',
-    type: 'gradient',
-    value: 'linear-gradient(135deg, #ff6ec7 0%, #e056fd 20%, #c65df9 40%, #a855f7 60%, #9333ea 80%, #7c3aed 100%)'
-  },
-  {
-    id: 'gradient-blue-teal',
-    name: 'Blue & Teal',
-    type: 'gradient',
-    value: 'linear-gradient(135deg, #4fd1c5 0%, #38b2ac 20%, #3182ce 40%, #2c5282 60%, #2b6cb0 80%, #1e40af 100%)'
-  },
-  {
-    id: 'gradient-rose-gold',
-    name: 'Rose & Gold',
-    type: 'gradient',
-    value: 'linear-gradient(135deg, #fecaca 0%, #fca5a5 20%, #f87171 40%, #ef4444 60%, #dc2626 80%, #b91c1c 100%)'
-  },
-  {
-    id: 'gradient-coral-peach',
-    name: 'Coral & Peach',
-    type: 'gradient',
-    value: 'linear-gradient(135deg, #fed7aa 0%, #fdba74 20%, #fb923c 40%, #f97316 60%, #ea580c 80%, #dc2626 100%)'
-  },
-  {
-    id: 'gradient-lavender-mint',
-    name: 'Lavender & Mint',
-    type: 'gradient',
-    value: 'linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 20%, #a78bfa 40%, #8b5cf6 60%, #7c3aed 80%, #6d28d9 100%)'
-  },
-  {
     id: 'bg-1',
     name: 'Balloons',
     type: 'image',
@@ -83,6 +53,42 @@ const BACKGROUNDS: Background[] = [
     type: 'image',
     value: '/backgrounds/sparks.jpg'
   },
+  {
+    id: 'bg-7',
+    name: 'Balloons 2',
+    type: 'image',
+    value: '/backgrounds/balloons_2.jpg'
+  },
+  {
+    id: 'bg-8',
+    name: 'Balloons 3',
+    type: 'image',
+    value: '/backgrounds/balloons_3.jpg'
+  },
+  {
+    id: 'bg-9',
+    name: 'Balloons 4',
+    type: 'image',
+    value: '/backgrounds/balloons_4.jpg'
+  },
+  {
+    id: 'bg-10',
+    name: 'Gold Leaves',
+    type: 'image',
+    value: '/backgrounds/gold_leaves.jpg'
+  },
+  {
+    id: 'bg-11',
+    name: 'Gold Fabric',
+    type: 'image',
+    value: '/backgrounds/gold_fabric.jpg'
+  },
+  {
+    id: 'bg-12',
+    name: 'Bokeh',
+    type: 'image',
+    value: '/backgrounds/bokeh.jpg'
+  },
 ];
 
 export default function Home() {
@@ -96,7 +102,7 @@ export default function Home() {
     thirdPhoto: null as string | null,
     colorScheme: 'purple-pink' as 'purple-pink' | 'blue-teal' | 'rose-gold' | 'coral-peach' | 'lavender-mint',
     logo: 'lmm-logo.png' as string,
-    backgroundId: 'gradient-purple-pink' as string,
+    backgroundId: 'bg-1' as string,
   });
   const [isLoaded, setIsLoaded] = useState(false);
   const [showClearDialog, setShowClearDialog] = useState(false);
@@ -404,7 +410,7 @@ export default function Home() {
                 >
                   {BACKGROUNDS.map(bg => (
                     <option key={bg.id} value={bg.id}>
-                      {bg.name} {bg.type === 'image' ? '(Image)' : '(Gradient)'}
+                      {bg.name}
                     </option>
                   ))}
                 </select>
@@ -526,7 +532,7 @@ export default function Home() {
                     thirdPhoto: null,
                     colorScheme: 'purple-pink' as const,
                     logo: 'lmm-logo.png',
-                    backgroundId: 'gradient-purple-pink',
+                    backgroundId: 'bg-1',
                   };
                   setFormData(defaultData);
                   localStorage.removeItem(STORAGE_KEY);
