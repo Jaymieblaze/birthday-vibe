@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import BirthdayCard from './components/BirthdayCard';
+import BirthdayCardDesign2 from './components/BirthdayCardDesign2';
 import { toast } from 'sonner';
 
 const STORAGE_KEY = 'birthday-card-form-data';
@@ -106,6 +107,7 @@ export default function Home() {
   });
   const [isLoaded, setIsLoaded] = useState(false);
   const [showClearDialog, setShowClearDialog] = useState(false);
+  const [activeDesign, setActiveDesign] = useState<'design1' | 'design2'>('design1');
   const photoInputRef = useRef<HTMLInputElement>(null);
   const secondPhotoInputRef = useRef<HTMLInputElement>(null);
   const thirdPhotoInputRef = useRef<HTMLInputElement>(null);
@@ -486,19 +488,60 @@ export default function Home() {
 
           {/* Card Preview Section */}
           <div className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6 text-gray-800">Preview</h2>
-            <BirthdayCard 
-              name={formData.name}
-              birthDate={formData.birthDate}
-              church={formData.church}
-              title={formData.title}
-              photo={formData.photo}
-              secondPhoto={formData.secondPhoto}
-              thirdPhoto={formData.thirdPhoto}
-              colorScheme={formData.colorScheme}
-              logo={formData.logo}
-              background={BACKGROUNDS.find(bg => bg.id === formData.backgroundId)}
-            />
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-gray-800">Preview</h2>
+            
+            {/* Design Tabs */}
+            <div className="flex gap-2 mb-4 sm:mb-6">
+              <button
+                onClick={() => setActiveDesign('design1')}
+                className={`flex-1 py-2.5 px-4 rounded-lg font-semibold transition-all text-sm sm:text-base ${
+                  activeDesign === 'design1'
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Design 1
+              </button>
+              <button
+                onClick={() => setActiveDesign('design2')}
+                className={`flex-1 py-2.5 px-4 rounded-lg font-semibold transition-all text-sm sm:text-base ${
+                  activeDesign === 'design2'
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Design 2
+              </button>
+            </div>
+
+            {/* Card Display */}
+            {activeDesign === 'design1' ? (
+              <BirthdayCard 
+                name={formData.name}
+                birthDate={formData.birthDate}
+                church={formData.church}
+                title={formData.title}
+                photo={formData.photo}
+                secondPhoto={formData.secondPhoto}
+                thirdPhoto={formData.thirdPhoto}
+                colorScheme={formData.colorScheme}
+                logo={formData.logo}
+                background={BACKGROUNDS.find(bg => bg.id === formData.backgroundId)}
+              />
+            ) : (
+              <BirthdayCardDesign2 
+                name={formData.name}
+                birthDate={formData.birthDate}
+                church={formData.church}
+                title={formData.title}
+                photo={formData.photo}
+                secondPhoto={formData.secondPhoto}
+                thirdPhoto={formData.thirdPhoto}
+                colorScheme={formData.colorScheme}
+                logo={formData.logo}
+                background={BACKGROUNDS.find(bg => bg.id === formData.backgroundId)}
+              />
+            )}
           </div>
         </div>
       </div>
