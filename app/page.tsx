@@ -394,6 +394,8 @@ export default function Home() {
                   <option value="ESTEEMED SISTER">Esteemed Sister</option>
                   <option value="ESTEEMED BROTHER">Esteemed Brother</option>
                   <option value="ESTEEMED PASTOR">Esteemed Pastor</option>
+                  <option value="ESTEEMED DEACON">Esteemed Deacon</option>
+                  <option value="ESTEEMED DEACONESS">Esteemed Deaconess</option>
                   <option value="DEAR FRIEND">Dear Friend</option>
                   <option value="CHERISHED MEMBER">Cherished Member</option>
                 </select>
