@@ -344,6 +344,30 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
     return { firstName, lastName };
   };
 
+  // Split title into prefix ("ESTEEMED") and suffix ("SISTER" → "Sis.")
+  const splitTitle = (t: string): { prefix: string; suffix: string } => {
+    const parts = t.trim().split(' ');
+    if (parts.length <= 1) return { prefix: t, suffix: '' };
+    return { prefix: parts[0], suffix: parts.slice(1).join(' ') };
+  };
+
+  const abbreviateTitleSuffix = (suffix: string): string => {
+    const map: Record<string, string> = {
+      SISTER: 'Sis.',
+      BROTHER: 'Bro.',
+      PASTOR: 'Pst.',
+      DEACON: 'Dcn.',
+      DEACONESS: 'Dcns.',
+      ELDER: 'Eld.',
+      EVANGELIST: 'Evg.',
+      REVEREND: 'Rev.',
+    };
+    return map[suffix.toUpperCase()] ?? suffix;
+  };
+
+  const { prefix: titlePrefix, suffix: titleSuffix } = splitTitle(title);
+  const titleAbbrev = titleSuffix ? abbreviateTitleSuffix(titleSuffix) : '';
+
   // Check if the first name has descenders (letters that extend below baseline)
   const hasDescenders = (text: string) => {
     return /[gjpqy]/i.test(text);
@@ -677,13 +701,13 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           {/* Bottom Section - Name */}
           <div className="pb-2 px-6 pt-8 text-center relative z-20">
 
-            {/* Title */}
+            {/* Title prefix (e.g. "ESTEEMED") */}
             <div className="font-semibold tracking-widest" style={{
               fontSize: '18px',
               marginBottom: '-4px',
               color: background?.type === 'image' ? '#f3f4f6' : '#1f2937',
             }}>
-              {title}
+              {titlePrefix}
             </div>
 
             {/* Name */}
@@ -705,7 +729,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                   ? 'drop-shadow(0 0 20px rgba(124, 58, 237, 0.8)) drop-shadow(3px 6px 12px rgba(0,0,0,0.6)) drop-shadow(6px 12px 24px rgba(0,0,0,0.4))'
                   : 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(2px 4px 8px rgba(0,0,0,0.4)) drop-shadow(4px 8px 16px rgba(0,0,0,0.3))',
               }}>
-                {firstName}
+                {titleAbbrev ? `${titleAbbrev} ${firstName}` : firstName}
               </h2>
               {lastName && (
                 <h3 className="font-bold tracking-widest" style={{
