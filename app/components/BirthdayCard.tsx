@@ -504,7 +504,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Center Section - Photo Frame */}
-          <div className="flex-1 flex items-start justify-center px-6 relative" style={{ marginTop: '-20px' }}>
+          <div className="flex items-start justify-center px-6 relative" style={{ marginTop: '-65px', height: '600px' }}>
             <div className="relative w-full max-w-[85%]">
               {/* Decorative Flowers - Left */}
               <div className="absolute -left-8 top-1/2 -translate-y-1/2 space-y-2 z-0">
@@ -675,10 +675,12 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Bottom Section - Name */}
-          <div className="pb-2 px-6 pt-4 text-center space-y-2 relative z-20">
+          <div className="pb-2 px-6 pt-8 text-center relative z-20">
 
             {/* Title */}
-            <div className="text-base font-semibold tracking-widest" style={{
+            <div className="font-semibold tracking-widest" style={{
+              fontSize: '18px',
+              marginBottom: '-4px',
               color: background?.type === 'image' ? '#f3f4f6' : '#1f2937',
             }}>
               {title}
@@ -696,7 +698,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                   }
                 ),
                 fontFamily: 'Allura, cursive',
-                fontSize: '75px',
+                fontSize: '100px',
                 lineHeight: '1.2',
                 paddingBottom: '4px',
                 filter: background?.id === 'bg-5'
@@ -706,7 +708,8 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                 {firstName}
               </h2>
               {lastName && (
-                <h3 className="text-2xl font-bold tracking-widest" style={{
+                <h3 className="font-bold tracking-widest" style={{
+                  fontSize: '30px',
                   color: background?.type === 'image' ? '#ffffff' : '#1f2937',
                   textShadow: '0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.3)',
                   marginTop: firstNameHasDescenders ? '0' : '-12px',
@@ -718,7 +721,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
           </div>
 
           {/* Footer Message */}
-          <div className="bg-white py-3" style={{
+          <div className="mt-auto bg-white py-3" style={{
             boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
           }}>
             <p className="text-center text-gray-800 text-xl font-bold tracking-[0.3em]" style={{
