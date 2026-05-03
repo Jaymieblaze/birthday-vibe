@@ -116,6 +116,12 @@ export default function Home() {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsedData = JSON.parse(saved);
+        if (parsedData.name) {
+          parsedData.name = parsedData.name
+            .split(' ')
+            .map((word: string) => word.length > 0 ? word[0].toUpperCase() + word.slice(1) : word)
+            .join(' ');
+        }
         setFormData(parsedData);
         toast.success('Previous data restored!', {
           description: 'Your form data has been recovered',
@@ -320,7 +326,13 @@ export default function Home() {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  onChange={(e) => {
+                    const titled = e.target.value
+                      .split(' ')
+                      .map(word => word.length > 0 ? word[0].toUpperCase() + word.slice(1) : word)
+                      .join(' ');
+                    setFormData(prev => ({ ...prev, name: titled }));
+                  }}
                   placeholder="First Name and Last Name"
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-yellow-700 placeholder:text-gray-600 font-medium text-sm sm:text-base"
                 />

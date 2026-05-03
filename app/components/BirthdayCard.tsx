@@ -376,6 +376,15 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
   const { firstName, lastName } = splitName(name);
   const firstNameHasDescenders = hasDescenders(firstName);
 
+  const getFirstNameFontSize = () => {
+    const displayText = titleAbbrev ? `${titleAbbrev} ${firstName}` : firstName;
+    const len = displayText.length;
+    if (len <= 18) return '80px';
+    if (len <= 22) return '68px';
+    if (len <= 26) return '56px';
+    return '44px';
+  };
+
   return (
     <div className="flex flex-col items-center w-full" style={{ gap: '2rem' }}>
       {/* Card Preview Container with Transform Scale */}
@@ -722,7 +731,7 @@ export default function BirthdayCard({ name, birthDate, church, title, photo, se
                   }
                 ),
                 fontFamily: 'Allura, cursive',
-                fontSize: '100px',
+                fontSize: getFirstNameFontSize(),
                 lineHeight: '1.2',
                 paddingBottom: '4px',
                 filter: background?.id === 'bg-5'
