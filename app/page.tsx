@@ -109,6 +109,7 @@ export default function Home() {
   const photoInputRef = useRef<HTMLInputElement>(null);
   const secondPhotoInputRef = useRef<HTMLInputElement>(null);
   const thirdPhotoInputRef = useRef<HTMLInputElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   // Load saved data from localStorage on mount
   useEffect(() => {
@@ -116,12 +117,6 @@ export default function Home() {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsedData = JSON.parse(saved);
-        if (parsedData.name) {
-          parsedData.name = parsedData.name
-            .split(' ')
-            .map((word: string) => word.length > 0 ? word[0].toUpperCase() + word.slice(1).toLowerCase() : word)
-            .join(' ');
-        }
         setFormData(parsedData);
         toast.success('Previous data restored!', {
           description: 'Your form data has been recovered',
@@ -324,15 +319,10 @@ export default function Home() {
                   Full Name *
                 </label>
                 <input
+                  ref={nameInputRef}
                   type="text"
                   value={formData.name}
-                  onChange={(e) => {
-                    const titled = e.target.value
-                      .split(' ')
-                      .map(word => word.length > 0 ? word[0].toUpperCase() + word.slice(1).toLowerCase() : word)
-                      .join(' ');
-                    setFormData(prev => ({ ...prev, name: titled }));
-                  }}
+                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="First Name and Last Name"
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none text-yellow-700 placeholder:text-gray-600 font-medium text-sm sm:text-base"
                 />
@@ -503,7 +493,7 @@ export default function Home() {
           <div className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6">
             <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6 text-gray-800">Preview</h2>
             <BirthdayCard 
-              name={formData.name}
+              name={formData.name.split(' ').map(w => w.length > 0 ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w).join(' ')}
               birthDate={formData.birthDate}
               church={formData.church}
               title={formData.title}
