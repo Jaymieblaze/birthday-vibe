@@ -119,7 +119,7 @@ export default function Home() {
         if (parsedData.name) {
           parsedData.name = parsedData.name
             .split(' ')
-            .map((word: string) => word.length > 0 ? word[0].toUpperCase() + word.slice(1) : word)
+            .map((word: string) => word.length > 0 ? word[0].toUpperCase() + word.slice(1).toLowerCase() : word)
             .join(' ');
         }
         setFormData(parsedData);
@@ -329,7 +329,7 @@ export default function Home() {
                   onChange={(e) => {
                     const titled = e.target.value
                       .split(' ')
-                      .map(word => word.length > 0 ? word[0].toUpperCase() + word.slice(1) : word)
+                      .map(word => word.length > 0 ? word[0].toUpperCase() + word.slice(1).toLowerCase() : word)
                       .join(' ');
                     setFormData(prev => ({ ...prev, name: titled }));
                   }}
