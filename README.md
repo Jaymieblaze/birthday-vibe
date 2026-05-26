@@ -8,7 +8,7 @@ A beautiful, customizable birthday card generator built with Next.js. Create stu
 - **Customizable Text**: Personalize with names, church names, titles, and birth dates
 - **Background Options**:
   - 5 vibrant gradient color schemes
-  - 6 image backgrounds including balloons, glitter, galaxy, and gold wall
+  - 12 image backgrounds including balloons, glitter, galaxy, gold wall, and more
   - Special purple gradient overlay for gold_wall background
 - **Edit Mode**: Adjust and position photos directly on the card
 - **High-Quality Export**: Download as high-resolution PNG (2304x3456px at 3x pixel ratio)
@@ -74,7 +74,7 @@ The application provides optimized download experiences across all devices:
 The application includes several background options:
 
 - **Gradients**: Purple-Pink, Blue-Teal, Rose-Gold, Coral-Peach, Lavender-Mint
-- **Images**: Balloons, Glitter, Glitter 2, Galaxy, Gold Wall, Sparks
+- **Images**: Balloons, Balloons 2, Balloons 3, Balloons 4, Glitter, Glitter 2, Galaxy, Gold Wall, Gold Leaves, Gold Fabric, Sparks, Bokeh
 
 The gold_wall background features a special purple gradient overlay that:
 - Maintains solid purple coverage for the top 25%
@@ -83,7 +83,7 @@ The gold_wall background features a special purple gradient overlay that:
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS
 - **Image Export**: html-to-image
 - **Font**: Allura (cursive), Cinzel, Montserrat
